@@ -1,7 +1,35 @@
-import *as ActionTypes from '../Action/types';
+import { api } from './api/api';
+import {
+  apiRequestPending,
+  apiRequestComplete
+} from '../Action/helper.action';
+export const SIGNIN_REQUEST_SUCCESS = 'SIGNIN_REQUEST_SUCCESS';
+export const SIGNIN_REQUEST_FAILURE = 'SIGNIN_REQUEST_FAILURE';
+  
 
-export function handleClick() {
-  return function (dispatch) {
-    dispatch({ type: "CLICK" });
-  }
-}
+const signinRequestSuccess = resp => (
+  {
+  
+    type: SIGNIN_REQUEST_SUCCESS,
+    resp
+  });
+
+const signinRequestFailure = error => (
+  {
+    type: SIGNIN_REQUEST_FAILURE,
+    error
+  });
+  
+export const signin = body => (dispatch) => {
+    
+  dispatch(apiRequestPending());
+  return api.post('/signup', { ...body })
+    .then(resp => {
+      dispatch(apiRequestComplete());
+      return Promise.resolve(dispatch(signinRequestSuccess(resp.message)))
+    })
+    .catch(error => {
+      dispatch(apiRequestComplete());
+      return Promise.reject(dispatch(signinRequestFailure(error.error)));
+    })
+};

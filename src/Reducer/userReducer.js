@@ -1,17 +1,32 @@
-import * as ActionTypes from '../Action/types';
+import {
+  SIGNIN_REQUEST_SUCCESS,
+  SIGNIN_REQUEST_FAILURE
+} from '../Action/userAction';
 
-const intialState = {
-  Uname: '',
-  Email: '',
-  Age: ''
-};
+  
+const initialState = {
+  username:'',
+  email: '',
+  password:'',
+  phone:''
+}
 
-export default (state = intialState, action) => {
-  switch (action.type) {
-    case ActionTypes.CLICK: {
-      return { ...state }
+  
+const signIn = (state = initialState, action) => {
+  switch(action.type){
+    case SIGNIN_REQUEST_SUCCESS:
+    return{
+      ...state,
+      pending: false,
+    }
+    case SIGNIN_REQUEST_FAILURE:
+    return{
+      ...state,
+      pending: false,
     }
     default:
-      return state;
+    return state
   }
 }
+
+export default signIn

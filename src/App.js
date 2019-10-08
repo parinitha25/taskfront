@@ -1,5 +1,4 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
 import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
 import userComponents from './Components/userComponents';
@@ -8,7 +7,7 @@ function App() {
     <div className="App">
       <Router>
       <Switch>     
-      <Route exact path='/' component={userComponents}></Route> 
+      <Route exact path='/' component={userComponents}></Route>
       </Switch>
       </Router>
     </div>
