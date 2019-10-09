@@ -76,18 +76,20 @@ const renderField = ({
         username:'',
         email:'',
         password:'',
-        phone:''
+        phone:'',
+        gender:''
       }
     } 
     signin=values => {
       
       const{signin}=this.props
-      const {username,email,age}=this.state;
+      const {username,email,password,phone,gender}=this.state;
       const userObj = {
         username: values.username,
         email: values.email,
         password:values.password,
-        phone:values.phone
+        phone:values.phone,
+        gender:values.gender
       }
       signin(userObj) 
      .then(resp=>{

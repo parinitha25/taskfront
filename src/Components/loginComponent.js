@@ -15,13 +15,6 @@ const validate = values => {
   } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
     errors.email = 'Invalid email address'
   }
-  if (!values.password) {
-    errors.age = 'Required'
-  } else if (isNaN(Number(values.age))) {
-    errors.age = 'Must be a number'
-  } else if (Number(values.age) < 18) {
-    errors.age = 'Sorry, you must be at least 18 years old'
-  }
   return errors
 }
 
@@ -39,7 +32,7 @@ const renderField = ({
     
     <label>{label}</label>
     <div>
-      <input {...rest} checked={input.value === rest.value}   {...input} placeholder={label} type={type} value={value} className={className}/>
+      <input {...input} placeholder={label} type={type} value={value} className={className}/>
       {touched &&
         ((error && <span>{error}</span>) ||
           (warning && <span>{warning}</span>))}
@@ -89,6 +82,11 @@ render() {
         <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
           <button type="submit" disabled={submitting} className='lbl'>
             Submit
+          </button>
+        </div>
+        <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
+          <button type="button" disabled={pristine || submitting} onClick={reset} className='clear'>
+            Clear Values
           </button>
         </div>
         <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
