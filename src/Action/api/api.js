@@ -27,14 +27,14 @@ export const api = {
     })
   },
   post: (path, payload) => {
-      
+      debugger
     payload = {
       method: 'post',
       body: JSON.stringify(payload),
       headers: headers(),
     }
     return new Promise((resolve, reject) => {
-          
+        debugger  
       return fetch(`${ROOT_API_URL}${path}`, payload)
         .then(resp => resp.json())
         .then(resp => resolve(resp))

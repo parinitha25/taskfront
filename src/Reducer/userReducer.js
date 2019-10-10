@@ -8,7 +8,8 @@ const initialState = {
   username:'',
   email: '',
   password:'',
-  phone:''
+  phone:'',
+  gender:''
 }
 
   

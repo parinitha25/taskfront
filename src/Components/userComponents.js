@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form';
-import {signin } from '../Action/userAction';
+import {signup } from '../Action/userAction';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
 import {successAlertHandler,failureAlertHandler} from '../Action/alert.action';
@@ -8,6 +8,7 @@ import '../CSS/userComponent.css';
 
 
 const validate = values => {
+
   const errors = {}
   if (!values.username) {
     errors.username = 'Required'
@@ -16,13 +17,21 @@ const validate = values => {
   }
   if (!values.email) {
     errors.email = 'Required'
-  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+  } else if (!/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i.test(values.email)) {
     errors.email = 'Invalid email address'
   }
   if (!values.phone) {
+    debugger
     errors.phone = 'Required'
-  }  else if (!/^(0|[1-9][0-9]{9})$/i.test(values.phone)) {
-    errors.phone = 'Invalid phone number, must be 10 digits'
+  } else if (!/^[0-9]{3}-\d{3}-\d{4}$/i.test(values.phone)) {
+    debugger
+   errors.phone = 'Invalid phone number'
+  }
+  
+  if (!values.password) {
+    errors.password = 'Required'
+  }  else if (!/^[A-Z0-9@]{4,8}$/i.test(values.password)) {
+    errors.password = 'Invalid password'
   }
   return errors
 }
@@ -46,32 +55,9 @@ const renderField = ({
 )
 
 
-// const renderField = ({
-//   input,
-//   label,
-//   type,
-//   value,
-//   className,
-//   meta: { touched, error, warning },
-//   ...rest
-// }) => (
-//   // console.log('value', value)
-//   // return <div>
-    
-//     <label>{label}</label>
-//     <div>
-//       <input {...rest} checked={input.value === rest.value}   {...input} placeholder={label} type={type} value={value} className={className}/>
-//       {touched &&
-//         ((error && <span>{error}</span>) ||
-//           (warning && <span>{warning}</span>))}
-//     </div>
-//   // </div>
-// )
-
   class userComponents extends Component {
     constructor(props){
       super(props);
-      // this.resetvalue = this.resetvalue.bind(this);
       this.state = {
         username:'',
         email:'',
@@ -80,10 +66,10 @@ const renderField = ({
         gender:''
       }
     } 
-    signin=values => {
-      
-      const{signin}=this.props
+    signup=values => { 
+      const{signup}=this.props
       const {username,email,password,phone,gender}=this.state;
+      const { history } = this.props;
       const userObj = {
         username: values.username,
         email: values.email,
@@ -91,38 +77,28 @@ const renderField = ({
         phone:values.phone,
         gender:values.gender
       }
-      signin(userObj) 
+      console.log(userObj)
+      signup(userObj) 
      .then(resp=>{
       successAlertHandler(resp.resp);
+      history.push('./home');
       })
       .catch(error => {
       failureAlertHandler(error.error);
       })
     }
 
-    // sample(e){
-    //   this.setState({
-    //     [e.target.name]: e.target.value
-    //   })
-    // }
-    // resetvalue(){
-    //   this.setState({
-    //     username:'',
-    //     email:'',
-    //     password:'',
-    //     phone:''
-    //   })
-    // }
  
    
   
 render() {
-  const { handleSubmit,pristine, reset, submitting} = this.props
-  const { email,username,password,phone,male ,female,others} = this.state;
+  const { handleSubmit, reset,} = this.props
+  const { email,username,password,phone} = this.state;
+  debugger
   // console.log('----->', email)
   // console.log('reset=>', reset)
   return (
-    <form onSubmit={handleSubmit(this.signin)}>
+    <form onSubmit={handleSubmit(this.signup)}>
       <h1 className='heading'>Registration Form</h1>
       <div className="row">
         <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
@@ -130,8 +106,8 @@ render() {
           <label className='lbl'>Username</label>
         </div>
         <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-          <Field name="username" className='input' component="input" value={username} type="text"  placeholder="User Name"/>
-          {/* <Field className='input' name="username" type="text" value={username} component={renderField} handleChange={this.handleChange} /> */}
+          {/* <Field name="username" className='input' component="input" value={username} type="text"  placeholder="User Name"/> */}
+          <Field className='input' name="username" type="text" value={username} component={renderField} />
         </div>
         <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
       </div>
@@ -141,8 +117,8 @@ render() {
           <label className="lbl">Email</label>
         </div>
         <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-          <Field name="email" className='input' component="input" value={email} type="text"  placeholder="email"/>
-          {/* <Field name="email" type="email"  value={email} component={renderField}  className="input" onChange={(e) => this.sample(e)} /> */}
+          {/* <Field name="email" className='input' component="input" value={email} type="text"  placeholder="email"/> */}
+          <Field name="email" type="email"  value={email} component={renderField}  className="input"  />
         </div>
         <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
       </div>
@@ -152,8 +128,8 @@ render() {
           <label className="lbl">Password</label>
         </div>
         <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-          <Field name="password" className='input' component="input" value={password}  type="password"  placeholder="Password"/>
-          {/* <Field name="password" type="text"  value={password} component={renderField}  className="input" handleChange={this.handleChange}/> */}
+          {/* <Field name="password" className='input' component="input" value={password}  type="password"  placeholder="Password"/> */}
+          <Field name="password" type="text"  value={password} component={renderField}  className="input" />
         </div>
         <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
       </div>
@@ -163,8 +139,8 @@ render() {
           <label className="lbl">Mobile number</label>
         </div>
         <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-          <Field name="phone" type="number" className='input' value={phone} component="input"  placeholder="phone"/>
-          {/* <Field name="phone" type="number"  value={phone} component={renderField}  className="input" handleChange={this.handleChange}/>        */}
+          {/* <Field name="phone" type="number" className='input' value={phone} component="input"  placeholder="phone"/> */}
+          <Field name="phone" type="text"  value={phone} component={renderField}  className="input"/>       
          </div>
         <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
       </div>
@@ -200,12 +176,12 @@ render() {
       <div className="row">
         <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
         <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-          <button type="submit" disabled={submitting} className='lbl'>
+          <button type="submit" className='lbl'>
             Submit
           </button>
         </div>
         <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-          <button type="button" disabled={pristine || submitting} onClick={reset} className='clear'>
+          <button type="button"  onClick={reset} className='clear'>
             Clear Values
           </button>
         </div>
@@ -221,11 +197,12 @@ const mapStateToProps=(state)=>{
   const{email}=state.userReducer; 
   const{password}=state.userReducer; 
   const{phone}=state.userReducer; 
+  const{gender}=state.userReducer; 
   return{username,email,password,phone};
 };
 
 const actions = {
-  signin
+  signup
 }
 
 export default compose(
