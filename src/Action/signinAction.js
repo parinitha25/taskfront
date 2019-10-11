@@ -7,29 +7,33 @@ export const SIGNIN_REQUEST_SUCCESS = 'SIGNIN_REQUEST_SUCCESS';
 export const SIGNIN_REQUEST_FAILURE = 'SIGNIN_REQUEST_FAILURE';
   
 
-const signinRequestSuccess = resp => (
+const signinRequestSuccess = (resp) => (
   {
   
     type: SIGNIN_REQUEST_SUCCESS,
     resp
   });
 
-const signinRequestFailure = error => (
+const signinRequestFailure = (error) => (
   {
     type: SIGNIN_REQUEST_FAILURE,
     error
   });
   
-export const signup = body => (dispatch) => {
-    
+export const signin = body => (dispatch) => {
+  console.log("Action call")
   dispatch(apiRequestPending());
-  return api.post('/signup', { ...body })
+  return api.post('/signin', { ...body })
     .then(resp => {
       dispatch(apiRequestComplete());
-      return Promise.resolve(dispatch(signinRequestSuccess(resp.message)))
+      dispatch(signinRequestSuccess(resp.user))
+      return Promise.resolve(resp)
     })
     .catch(error => {
+      console.log(error)
       dispatch(apiRequestComplete());
-      return Promise.reject(dispatch(signinRequestFailure(error.error)));
+      dispatch(signinRequestFailure(error.user))
+      return Promise.reject(error);
     })
 };
+

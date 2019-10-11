@@ -17,6 +17,7 @@ const failureAlert = (error) => {
 }
 
 const formateMessage = (data) => {
+  console.log(data)
   if(typeof(data) === 'string'){
     return data;
   } else {

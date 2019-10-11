@@ -17,7 +17,7 @@ const validate = values => {
   }
   if (!values.email) {
     errors.email = 'Required'
-  } else if (!/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)\.([a-zA-Z]{2,5})$/i.test(values.email)) {
+  } else if (!/^([a-zA-Z0-9_\-\.]+)@([a-zA-Z0-9_\-\.]+)([a-zA-Z]{2,5})$/i.test(values.email)) {
     errors.email = 'Invalid email address'
   }
   if (!values.phone) {
@@ -81,7 +81,7 @@ const renderField = ({
       signup(userObj) 
      .then(resp=>{
       successAlertHandler(resp.resp);
-      history.push('./home');
+      history.push('/login');
       })
       .catch(error => {
       failureAlertHandler(error.error);
@@ -198,7 +198,7 @@ const mapStateToProps=(state)=>{
   const{password}=state.userReducer; 
   const{phone}=state.userReducer; 
   const{gender}=state.userReducer; 
-  return{username,email,password,phone};
+  return{username,email,password,phone,gender};
 };
 
 const actions = {
