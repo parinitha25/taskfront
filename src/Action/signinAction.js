@@ -18,19 +18,15 @@ const signinRequestFailure = (error) => (
   });
   
 export const signin = body => (dispatch) => {
-  console.log("Action call")
   dispatch(apiRequestPending());
   return api.post('/signin', { ...body })
     .then(resp => {
       dispatch(apiRequestComplete());
-      debugger
       dispatch(signinRequestSuccess(resp.message))
       return Promise.resolve(resp.message)
     })
     .catch(error => {
-      console.log(error)
       dispatch(apiRequestComplete());
-      debugger
       dispatch(signinRequestFailure(error.error))
       return Promise.reject(error.error);
     })

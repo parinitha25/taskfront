@@ -7,7 +7,6 @@ import {successAlertHandler,failureAlertHandler} from '../Action/alert.action';
 import '../CSS/signupComponent.css';
 
 const validate = values => {
-debugger
   const errors = {}
   if (!values.username) {
     errors.username = 'Required'
@@ -53,7 +52,6 @@ const renderField = ({
 
 
 class signupComponents extends Component {
-  debugger
     constructor(props){
       super(props);
       this.state = {
@@ -66,7 +64,6 @@ class signupComponents extends Component {
     } 
     signup=values => { 
       const{signup}=this.props
-      const {username,email,password,phone,gender}=this.state;
       const { history } = this.props;
       const userObj = {
         username: values.username,
@@ -75,7 +72,6 @@ class signupComponents extends Component {
         phone:values.phone,
         gender:values.gender
       }
-      console.log(userObj)
       signup(userObj) 
         .then(resp=>{
           successAlertHandler(resp.resp);
@@ -179,7 +175,6 @@ class signupComponents extends Component {
   }
 }
 const mapStateToProps=(state)=>{
-  debugger
   const{username}=state.signupReducer;
   const{email}=state.signupReducer; 
   const{password}=state.signupReducer; 

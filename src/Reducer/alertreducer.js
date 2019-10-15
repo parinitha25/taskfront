@@ -9,7 +9,6 @@ import {
     error: '',
   }
   const alert = (state = initialState, action) => {
-    debugger
     switch (action.type) {
       case SUCCESS_ALERT:
         return {

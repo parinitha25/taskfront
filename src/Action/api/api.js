@@ -15,8 +15,7 @@ const headers = () => {
 }
 
 export const api = {
-   
-  get: (path) => {
+   get: (path) => {
     return new Promise((resolve, reject) => {
       return fetch(`${ROOT_API_URL}${path}`,{
         headers: headers(),

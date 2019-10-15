@@ -7,7 +7,6 @@ import {successAlertHandler,failureAlertHandler} from '../Action/alert.action';
 import '../CSS/signupComponent.css';
 
 const validate = values => {
-  debugger
   const errors = {}
   if (!values.email) {
     errors.email = 'Required'
@@ -55,7 +54,6 @@ class signinComponent extends Component {
         email: values.email,
         password:values.password
       }
-      console.log(userObj)
       signin(userObj) 
         .then(resp=>{
           successAlertHandler(resp);
@@ -63,12 +61,10 @@ class signinComponent extends Component {
         })
         .catch(error => {
         failureAlertHandler(error);
-        // console.log(error)
       })    
     }  
    
   render() {
-    debugger
     const { handleSubmit, reset,} = this.props
     const { email,password} = this.state;
     return (
@@ -114,7 +110,6 @@ class signinComponent extends Component {
 }
 
 const mapStateToProps=(state)=>{
-  debugger
   const{email}=state.signinReducer; 
   const{password}=state.signinReducer;
   return{email,password};

@@ -1,6 +1,5 @@
 import fetchIntercept from 'fetch-intercept';
 
-debugger
 const handleRejectedResponses = (response) => {
   switch (response.status) {
     case 422:

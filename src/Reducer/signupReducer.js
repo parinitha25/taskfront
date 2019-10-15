@@ -9,7 +9,6 @@ const initialState = {
 }
   
   const signup = (state = initialState, action) => {
-    debugger
     switch(action.type){
       case SIGNIN_REQUEST_SUCCESS:
       return{
