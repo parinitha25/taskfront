@@ -17,9 +17,10 @@ const failureAlert = (error) => {
 }
 
 const formateMessage = (data) => {
-  console.log(data)
   if(typeof(data) === 'string'){
+    console.log(data)
     return data;
+    
   } else {
     return data.toString();
   }
@@ -27,13 +28,13 @@ const formateMessage = (data) => {
 
 export const successAlertHandler = message => (dispatch) => {
   const formattedMessage = formateMessage(message);
-  setTimeout(() => dispatch(clearBothAlertHandler()),3000);
+  setTimeout(() => dispatch(clearBothAlertHandler()),8000);
    dispatch(successAlert(formattedMessage));
 };
 
 export const failureAlertHandler = error => (dispatch) => {
   const formattedMessage = formateMessage(error);
-  setTimeout(() => dispatch(clearBothAlertHandler()),3000);
+  setTimeout(() => dispatch(clearBothAlertHandler()),8000);
   dispatch(failureAlert(formattedMessage));
 }
 

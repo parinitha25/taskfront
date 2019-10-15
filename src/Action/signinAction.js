@@ -1,15 +1,12 @@
 import { api } from './api/api';
-import {
-  apiRequestPending,
-  apiRequestComplete
-} from '../Action/helper.action';
+import { apiRequestPending, apiRequestComplete } from '../Action/helper.action';
+
 export const SIGNIN_REQUEST_SUCCESS = 'SIGNIN_REQUEST_SUCCESS';
 export const SIGNIN_REQUEST_FAILURE = 'SIGNIN_REQUEST_FAILURE';
   
 
 const signinRequestSuccess = (resp) => (
   {
-  
     type: SIGNIN_REQUEST_SUCCESS,
     resp
   });
@@ -26,14 +23,16 @@ export const signin = body => (dispatch) => {
   return api.post('/signin', { ...body })
     .then(resp => {
       dispatch(apiRequestComplete());
-      dispatch(signinRequestSuccess(resp.user))
-      return Promise.resolve(resp)
+      debugger
+      dispatch(signinRequestSuccess(resp.message))
+      return Promise.resolve(resp.message)
     })
     .catch(error => {
       console.log(error)
       dispatch(apiRequestComplete());
-      dispatch(signinRequestFailure(error.user))
-      return Promise.reject(error);
+      debugger
+      dispatch(signinRequestFailure(error.error))
+      return Promise.reject(error.error);
     })
 };
 

@@ -4,12 +4,10 @@ import {signin } from '../Action/signinAction';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
 import {successAlertHandler,failureAlertHandler} from '../Action/alert.action';
-import '../CSS/userComponent.css';
-
-
+import '../CSS/signupComponent.css';
 
 const validate = values => {
-
+  debugger
   const errors = {}
   if (!values.email) {
     errors.email = 'Required'
@@ -42,8 +40,7 @@ const renderField = ({
   </div>
 )
 
-
-  class signinComponent extends Component {
+class signinComponent extends Component {
     constructor(props){
       super(props);
       this.state = {
@@ -51,8 +48,8 @@ const renderField = ({
         password:''
       }
     } 
-    signin=values => { 
-      const{signin}=this.props
+    signin=(values) => { 
+      const{signin,successAlertHandler,failureAlertHandler}=this.props
       const { history } = this.props;
       const userObj = {
         email: values.email,
@@ -60,87 +57,78 @@ const renderField = ({
       }
       console.log(userObj)
       signin(userObj) 
-     .then(resp=>{
-      successAlertHandler(resp);
-
-    //   history.push('/home');
-      })
-      .catch(error => {
-          debugger
-      console.log(error.error)
-      failureAlertHandler(error);
-    
-      })
-     
+        .then(resp=>{
+          successAlertHandler(resp);
+          history.push('/home');
+        })
+        .catch(error => {
+        failureAlertHandler(error);
+        // console.log(error)
+      })    
     }  
-  
-  
-render() {
-  const { handleSubmit, reset,} = this.props
-  const { email,password} = this.state;
-  return (
-    <form onSubmit={handleSubmit(this.signin)}>
-      <h1 className='heading'>Registration Form</h1>
-      <div className="row">
-        <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
-        <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-          <label className="lbl">Email</label>
-        </div>
-        <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-          {/* <Field name="email" className='input' component="input" value={email} type="text"  placeholder="email"/> */}
-          <Field name="email" type="email"  value={email} component={renderField}  className="input"  />
-        </div>
-        <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
-      </div>
-      <div className="row">
-        <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
-        <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-          <label className="lbl">Password</label>
-        </div>
-        <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-          {/* <Field name="password" className='input' component="input" value={password}  type="password"  placeholder="Password"/> */}
-          <Field name="password" type="text"  value={password} component={renderField}  className="input" />
-        </div>
-        <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
-      </div>
-      <div className="row">
-        <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
-        <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-          <button type="submit" className='lbl'>
-            Submit
-          </button>
-        </div>
-        <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-          <button type="button"  onClick={reset} className='clear'>
-            Clear Values
-          </button>
-        </div>
-        <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
-      </div>
-      <div className="row">
-        <div className='col-xs-2 col-sm-2 col-md-2 col-lg-2'></div>
-        <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
-      <div className="message"><h1>{this.props.message}</h1></div>
-      <div className='col-xs-7 col-sm-7 col-md-7 col-lg-7'></div>
-      </div>
-    </form>
    
-  )
+  render() {
+    debugger
+    const { handleSubmit, reset,} = this.props
+    const { email,password} = this.state;
+    return (
+      <form onSubmit={handleSubmit(this.signin)}>
+        <h1 className='heading'>Registration Form</h1>
+        <div className="row">
+          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
+          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
+            <label className="lbl">Email</label>
+          </div>
+          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
+            <Field name="email" type="email"  value={email} component={renderField}  className="input"  />
+          </div>
+          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
+        </div>
+        <div className="row">
+          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
+          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
+            <label className="lbl">Password</label>
+          </div>
+          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
+            <Field name="password" type="text"  value={password} component={renderField}  className="input" />
+          </div>
+          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
+        </div>
+        <div className="row">
+          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
+          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
+            <button type="submit" className='lbl'>
+              Submit
+            </button>
+          </div>
+          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
+            <button type="button"  onClick={reset} className='clear'>
+              Clear Values
+            </button>
+          </div>
+          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
+        </div>
+      </form> 
+    )
+  }
 }
-}
+
 const mapStateToProps=(state)=>{
+  debugger
   const{email}=state.signinReducer; 
   const{password}=state.signinReducer;
-  const{message}=state.signinReducer;   
-  return{email,password,message};
+  return{email,password};
+  
 };
 
 const actions = {
-  signin
+  signin,
+  successAlertHandler,
+  failureAlertHandler
 }
 
 export default compose(
   connect(mapStateToProps, actions),
   reduxForm({form: 'syncValidation',
       validate
-    })) (signinComponent)
+  })) (signinComponent)
