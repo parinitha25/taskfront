@@ -2,7 +2,7 @@
 import React, { Component,Fragment } from 'react'
 import {connect} from 'react-redux';
 import './App.css';
-import {BrowserRouter as Router,Route,Switch} from 'react-router-dom';
+import {BrowserRouter as Router,Route,Switch,Redirect} from 'react-router-dom';
 import userComponents from './Components/signupComponents';
 import signinComponent from './Components/signinComponent';
 import homeComponent from './Components/homeComponent';
@@ -21,6 +21,15 @@ const AlertWrapper = ({ message, error }) => {
     return '';
   }
 }
+const PrivateRoute = ({ component: IncomingComponent, ...rest }) => (
+  <Route
+  {...rest}
+  render={props => (  
+    (sessionStorage.getItem('token')) ? (<IncomingComponent {...props} />) : (
+      <Redirect to={{pathname: '/', state: { from: props.location }, }}/>)
+  )}
+/>
+);
 
 class App extends Component {
 
@@ -31,9 +40,9 @@ class App extends Component {
         {(message || error) && <AlertWrapper message={message} error={error} />}
        <Router>
        <Switch>     
-       <Route exact path='/' component={userComponents}></Route>
-       <Route exact path='/login' component={signinComponent}></Route>
-       <Route exact path='/home' component={homeComponent}></Route>
+       <Route exact path='/signup' component={userComponents}></Route>
+       <Route exact path='/' component={signinComponent}></Route>
+       <PrivateRoute exact path='/home' component={homeComponent} />
        </Switch>
        </Router>
 
@@ -43,8 +52,6 @@ class App extends Component {
 };
 
 const mapStateToProps = state => {
-  console.log('this: ', this);
-  console.log('mapStateToProps / app.js', state);
   const { message, error } = state.alert;
   const { pending } = state.helper;
   return { message, error, pending };

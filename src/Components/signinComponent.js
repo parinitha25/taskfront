@@ -63,13 +63,14 @@ class signinComponent extends Component {
         failureAlertHandler(error);
       })    
     }  
+    
    
   render() {
     const { handleSubmit, reset,} = this.props
     const { email,password} = this.state;
     return (
       <form onSubmit={handleSubmit(this.signin)}>
-        <h1 className='heading'>Registration Form</h1>
+        <h1 className='heading'>Login Form</h1>
         <div className="row">
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>

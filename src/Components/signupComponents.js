@@ -25,7 +25,7 @@ const validate = values => {
   } 
   if (!values.password) {
     errors.password = 'Required'
-  }  else if (!/^[A-Z0-9@]{4,8}$/i.test(values.password)) {
+  }  else if (!/^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s).{4,8}$/i.test(values.password)) {
     errors.password = 'Invalid password'
   }
   return errors

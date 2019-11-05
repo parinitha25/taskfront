@@ -21,6 +21,10 @@
   color: green;
   margin-top: 50px;
 }
+.logout{
+  text-align: right;
+  margin-left:80%; 
+}
 
 .homeimage{
   width:100%;
