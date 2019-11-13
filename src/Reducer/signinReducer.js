@@ -1,9 +1,14 @@
-import { SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE , TOKEN_EMAIL_TO_STORE,} from '../Action/signinAction';
+import { SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE , TOKEN_EMAIL_TO_STORE} from '../Action/signinAction';
     
   const initialState = {
-    email: '',
-    password:'',
-    token: '',
+    // email: '',
+    // password:'',
+    // token: '',
+    name:'',
+    date: '',
+    time:'',
+    place:'',
+    
   }
      
   const signIn = (state = initialState, action) => {

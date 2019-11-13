@@ -75,7 +75,7 @@ class signupComponents extends Component {
       signup(userObj) 
         .then(resp=>{
           successAlertHandler(resp.resp);
-          history.push('/login');
+          history.push('/');
         })
         .catch(error => {
           failureAlertHandler(error.error);
@@ -159,7 +159,7 @@ class signupComponents extends Component {
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
             <button type="submit" className='lbl'>
-              Submit
+              Register
             </button>
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
@@ -167,8 +167,9 @@ class signupComponents extends Component {
               Clear Values
             </button>
           </div>
-          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
+          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div> 
         </div>
+        <p className="anchortag"><a href="./">Already you register click here.....</a></p>
       </form>
     
     )

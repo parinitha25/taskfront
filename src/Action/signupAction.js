@@ -21,10 +21,23 @@ export const signup = body => (dispatch) => {
   return api.post('/signup', { ...body })
     .then(resp => {
       dispatch(apiRequestComplete());
-      return Promise.resolve(dispatch(signinRequestSuccess(resp.message)))
+      return Promise.resolve(dispatch(signinRequestSuccess(resp)))
     })
     .catch(error => {
       dispatch(apiRequestComplete());
-      return Promise.reject(dispatch(signinRequestFailure(error.error)));
+      return Promise.reject(dispatch(signinRequestFailure(error)));
     })
 };
+
+// export const eventlist = body => (dispatch) => {
+//   dispatch(apiRequestPending());
+//   return api.post('/posteventlist', { ...body })
+//     .then(resp => {
+//       dispatch(apiRequestComplete());
+//       return Promise.resolve(dispatch(signinRequestSuccess(resp.message)))
+//     })
+//     .catch(error => {
+//       dispatch(apiRequestComplete());
+//       return Promise.reject(dispatch(signinRequestFailure(error.error)));
+//     })
+// };
