@@ -3,8 +3,9 @@ import { apiRequestPending, apiRequestComplete } from '../Action/helper.action';
 
 export const SIGNIN_REQUEST_SUCCESS = 'SIGNIN_REQUEST_SUCCESS';
 export const SIGNIN_REQUEST_FAILURE = 'SIGNIN_REQUEST_FAILURE';
+export const DELETE_CONTACT_SUCESS = 'DELETE_CONTACT_SUCESS';
+export const DELETE_CONTACT_FAILURE = 'DELETE_CONTACT_FAILURE';
 export const TOKEN_EMAIL_TO_STORE = 'TOKEN_EMAIL_TO_STORE';
-  
 
 const signinRequestSuccess = (resp) => (
   {
@@ -17,6 +18,19 @@ const signinRequestFailure = (error) => (
     type: SIGNIN_REQUEST_FAILURE,
     error
   });
+
+export const deleteContactsucess = (resp) => (
+  {
+        type:DELETE_CONTACT_SUCESS,
+        resp
+});
+
+const deleteContactfailure = (error) => (
+  {
+      type:DELETE_CONTACT_FAILURE,
+      error
+  });
+
 
   export const storeEmailToken = () => ({
     type: TOKEN_EMAIL_TO_STORE
@@ -53,8 +67,7 @@ const signinRequestFailure = (error) => (
         return Promise.reject(error.errorl);
       })
   };
-
-  
+   
   export const getsignin = body => (dispatch) => {
     dispatch(apiRequestPending());
     return api.get('/getuserall', { ...body })
@@ -89,23 +102,40 @@ const signinRequestFailure = (error) => (
       })
   }
 
+  export const deleteContactlist = _id => (dispatch) => {
+    dispatch(apiRequestPending());
+    debugger
+    return api.delete(`/deleteeventlist/${_id}`)
+      .then(resp => {
+        debugger
+        dispatch(apiRequestComplete());
+        dispatch(deleteContactsucess(resp.messagedelete))
+        return Promise.resolve(resp.messagedelete)
+      .catch(error => {
+        debugger
+        dispatch(apiRequestComplete());
+        dispatch(deleteContactfailure(error))
+        return Promise.reject(error);
+      })
+      })
+  }
    
-// export const eventlist = body => (dispatch) => {
-//     dispatch(apiRequestPending());
-//     debugger
-//     return api.post('/eventlist', { ...body })
-//       .then(resp => {
-//         sessionStorage.setItem('token', resp.token);
-//         sessionStorage.setItem('email', resp.email);
-//         dispatch(apiRequestComplete());
-//         dispatch(signinRequestSuccess(resp))
-//         return Promise.resolve(resp)
-//       })
-//       .catch(error => {
-//           debugger
-//         dispatch(apiRequestComplete());
-//         dispatch(signinRequestFailure(error))
-//         return Promise.reject(error);
-//       })
-//   };
+export const uptodate = body => (dispatch) => {
+    dispatch(apiRequestPending());
+    debugger
+    return api.post('/updateeventlist', { ...body })
+      .then(resp => {
+        sessionStorage.setItem('token', resp.token);
+        sessionStorage.setItem('email', resp.email);
+        dispatch(apiRequestComplete());
+        dispatch(signinRequestSuccess(resp))
+        return Promise.resolve(resp)
+      })
+      .catch(error => {
+          debugger
+        dispatch(apiRequestComplete());
+        dispatch(signinRequestFailure(error))
+        return Promise.reject(error);
+      })
+  };
   

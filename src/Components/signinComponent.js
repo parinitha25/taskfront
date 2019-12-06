@@ -92,13 +92,13 @@ class signinComponent extends Component {
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
         </div>
         <div className="row">
-          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
+          <div className='col-xs-4 col-sm-4 col-md-4 col-lg-4'></div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
             <button type="submit" className='lbl'>
               Submit
             </button>
           </div>
-          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
+          <div className='col-xs-2 col-sm-2 col-md-2 col-lg-2'>
             <button type="button"  onClick={reset} className='clear'>
               Clear Values
             </button>

@@ -1,4 +1,4 @@
-import { SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE,TOKEN_EMAIL_TO_STORE} from '../Action/homeAction';
+import { SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE,DELETE_CONTACT_SUCESS,DELETE_CONTACT_FAILURE} from '../Action/homeAction';
   
 const initialState = {
   name:'',
@@ -10,12 +10,6 @@ const initialState = {
   
   const eventlist = (state = initialState, action) => {
     switch(action.type){
-        // case TOKEN_EMAIL_TO_STORE:
-        //     return {
-        //         ...state,
-        //         token: sessionStorage.getItem('token'),
-        //         email: sessionStorage.getItem('email')
-        //         }
         case SIGNIN_REQUEST_SUCCESS:
             return{
                 ...state,
@@ -26,8 +20,22 @@ const initialState = {
                 ...state,
                 pending: false,
             }
-            default:
-            return state
+        case DELETE_CONTACT_SUCESS:
+            // const Id = action.data;
+            // return state.filter(resp=>action.id!==Id)
+            return{
+              ...state,
+              pending: false,
+          }
+          case DELETE_CONTACT_FAILURE:
+            return{
+              ...state,
+              pending: false,
+          }
+              default:
+              return state
     }
   }
   export default eventlist
+
+  

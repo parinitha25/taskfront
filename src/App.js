@@ -6,11 +6,11 @@ import {BrowserRouter as Router,Route,Switch,Redirect} from 'react-router-dom';
 import signupComponents from './Components/signupComponents';
 import signinComponent from './Components/signinComponent';
 import homeComponent from './Components/homeComponent';
-
 import './interceptor';
 import {
   Alert, 
 } from 'reactstrap';
+
 
 const AlertWrapper = ({ message, error }) => {
   if (message) {
@@ -31,21 +31,24 @@ const PrivateRoute = ({ component: IncomingComponent, ...rest }) => (
 />
 );
 
-class App extends Component {
 
+
+class App extends Component {
+  
   render() {
     const { error, message} = this.props;
     return (
       <Fragment>
+       
         {(message || error) && <AlertWrapper message={message} error={error} />}
+        
        <Router>
        <Switch>     
        <Route exact path='/signup' component={signupComponents}></Route>
        <Route exact path='/' component={signinComponent}></Route>
-       <PrivateRoute exact path='/home' component={homeComponent} />
+       <PrivateRoute exact path='/home' component={homeComponent} />  
        </Switch>
        </Router>
-
       </Fragment>
     );
   }

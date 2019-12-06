@@ -4,15 +4,15 @@
   float: right
 }
 .input {
-  margin-top: 20px;
   float: left;
 }
 .clear {
-  margin-top: 20px;
+  margin-top: 25px;
   float: left;
 }
 .heading{
-  margin-left: 10%;
+  margin-left: 45%;
+  margin-top: 5%;
   color: red;
   font-weight: bold;
   margin-bottom: 40px;
@@ -26,12 +26,13 @@
   margin-left:80%; 
 }
 
-.homeimage{
+.editimage{
   width:100%;
-  height: 10%;
-  padding-left: 10%;
-  padding-right: 10%;
-  padding-bottom: 10%;
+}
+
+.deleteimage{
+  width:50%;
+  margin-top: 10px;
 }
 .home{
   color:blue;

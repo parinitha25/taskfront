@@ -72,14 +72,29 @@ export const api = {
        .catch(error => reject(error))
    })
  },
- delete: (path) => {
+ delete: (path,payload) => {
+  payload = {
+    method: 'delete',
+    body: JSON.stringify(payload),
+    headers: headers(),
+  }
   return new Promise((resolve, reject) => {
-    return fetch(`${ROOT_API_URL}${path}`,{
-      headers: headers(),
-    })
+    return fetch(`${ROOT_API_URL}${path}`,payload)
       .then(resp => resp.json())
-      .then(
-      sessionStorage.removeItem("token"))
+      .then(resp => resolve(resp))
+      .catch(error => reject(error))
+  })
+},
+put: (path, payload) => {
+  payload = {
+    method: 'put',
+    body: JSON.stringify(payload),
+    headers: headers(),
+  }
+  return new Promise((resolve, reject) => {
+    return fetch(`${ROOT_API_URL}${path}`, payload)
+      .then(resp => resp.json())
+      .then(resp => resolve(resp))
       .catch(error => reject(error))
   })
 }

@@ -134,24 +134,25 @@ class signupComponents extends Component {
             <label className="lbl">Gender</label>
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3 row'>
-            <div className='col-xs-4 col-sm-4 col-md-4 col-lg-4'>
+            <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
               <label className='lbl'>
                 <Field name="gender" component="input" type="radio" value="male" />{' '}
                 Male
               </label>
             </div>
-            <div className='col-xs-4 col-sm-4 col-md-4 col-lg-4'>
+            <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
               <label className='lbl'>
                 <Field name="gender" component="input" type="radio" value="female" />{' '}
                 Female
               </label>
             </div>
-            <div className='col-xs-4 col-sm-4 col-md-4 col-lg-4'>
+            <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
               <label className='lbl'>
                 <Field name="gender" component="input" type="radio" value="others" />{' '}
                 Others
               </label>
             </div>  
+            <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
         </div>
