@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { reduxForm } from 'redux-form';
-import { getallsignin, getsignin, validateuser, eventlists, deleteContactlist } from '../Action/homeAction';
+import { getallsignin, getsignin, validateuser, eventlists, deleteContactlist,update } from '../Action/homeAction';
 import { eventlist } from '../Action/signinAction'
 import { connect } from 'react-redux';
 import { compose } from 'redux';
@@ -19,27 +19,17 @@ class homeComponent extends Component {
       Events: [],
       token: "",
       name: '',
+      updateObj:"",
+      updateObjs:'',
       place: '',
       date: new Date(),
       time: new Date(),
       modal: false,
-      modeldelete: false
+      modeldelete: false,
+      modelupdate:false
     }
   }
-  getallsignin = () => {
-    const { getallsignin, successAlertHandler, failureAlertHandler } = this.props
-    const { history } = this.props;
-    getallsignin()
-      .then(resp => {
-        successAlertHandler(resp);
-        sessionStorage.removeItem("token")
-        history.push('/');
-      })
-      .catch(error => {
-        failureAlertHandler(error);
-        sessionStorage.removeItem("token")
-      })
-  }
+
   componentDidMount = () => {
     debugger
     const { validateuser, successAlertHandler, failureAlertHandler } = this.props
@@ -63,21 +53,35 @@ class homeComponent extends Component {
         failureAlertHandler(error);
       })
   }
+
   componentWillMount = () => {
     debugger
-    const { eventlists, successAlertHandler, failureAlertHandler } = this.props
+    const { eventlists, failureAlertHandler } = this.props
     const { history } = this.props;
     eventlists()
       .then(resp => {
         this.setState({ Events: resp })
+      })
+      .catch(error => {
+        failureAlertHandler(error);
+      })
+  }
 
+  getallsignin = () => {
+    const { getallsignin, successAlertHandler, failureAlertHandler } = this.props
+    const { history } = this.props;
+    getallsignin()
+      .then(resp => {
+        successAlertHandler(resp);
+        sessionStorage.removeItem("token")
+        history.push('/');
       })
       .catch(error => {
         failureAlertHandler(error);
         sessionStorage.removeItem("token")
-        history.push('/');
       })
   }
+
   handleDate = (date) => {
     this.setState({
       date: date,
@@ -86,6 +90,15 @@ class homeComponent extends Component {
   }
   handleChange = (e) => {
     this.setState({ [e.target.name]: e.target.value });
+  }
+
+  handleChanges = (e) => {
+    let updateObjs= {}
+    // const { updateObjs } = this.state;
+    updateObjs[e.target.name] = e.target.value
+    debugger
+    this.setState({updateObjs})
+    debugger
   }
   handleSubmit = () => {
     const { name, place, date, time } = this.state;
@@ -108,11 +121,29 @@ class homeComponent extends Component {
     debugger
     deleteContactlist(_id)
       .then(resp => {
-        // successAlertHandler(resp);
+        successAlertHandler(resp);
         this.setState({
           modelOpens: !this.state.modelOpens,
         });
         // window.location.reload();
+      })
+      .catch(error => {
+        failureAlertHandler(error);
+      })
+  }
+
+  handlesubmitupdate = () => {
+    const {update,  successAlertHandler, failureAlertHandler } = this.props
+    const { updateObjs,updateObj} = this.state;
+    debugger
+    update(updateObjs,updateObj._id)
+      .then(resp=> {
+        successAlertHandler(resp);
+        this.setState({
+          modelOpenss: !this.state.modelOpenss,
+       
+        });
+        window.location.reload();
       })
       .catch(error => {
         failureAlertHandler(error);
@@ -124,16 +155,25 @@ class homeComponent extends Component {
     });
   }
 
-  modeldelete = (resp, dispatch) => {
+  modeldelete = (resp) => {
     this.setState({
       modelOpens: !this.state.modelOpens,
       deleteObj: resp,
     })
   }
 
+  modelupdate = (resp) => {
+    console.log("res ====", resp)
+    this.setState({
+      modelOpenss: !this.state.modelOpenss,
+      updateObj: resp
+    })
+  }
+
   render() {
+    console.log("this.state ====", this.state)
     const { handleSubmit } = this.props
-    const { name, date, time, place } = this.state
+    const { name, place } = this.state
     return (
       // <form {handleSubmit(this.getallsignin)}>
       // <form onSubmit={handleSubmit(this.getallsignin)}>
@@ -168,7 +208,7 @@ class homeComponent extends Component {
               <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
             </div>
             <table border="1" className="table">
-              <tr>
+              <tr className="tableheading">
                 <th>Name</th>
                 <th>Date</th>
                 <th>Time</th>
@@ -181,9 +221,8 @@ class homeComponent extends Component {
                   <td>{resp.date}</td>
                   <td>{resp.time}</td>
                   <td>{resp.place}</td>
-                  <td><img src="/edit1.png" alt="image111" className="editimage" /></td>
-                  {/* <td><img src="/delete1.png" alt="image111" className="deleteimage" /></td>                    */}
-                  <button onClick={() => this.modeldelete(resp)} className="btn btn-danger">Remove</button>
+                  <td><button onClick={() =>this.modelupdate(resp)} className="btn btn-danger">Edit</button></td>
+                  <td><button onClick={() => this.modeldelete(resp)} className="btn btn-danger">Remove</button></td>
                 </tr>
               ))}
             </table>
@@ -235,11 +274,52 @@ class homeComponent extends Component {
             {this.state.deleteObjs}
             <table border="1" className="table">
               <button onClick={() => this.handleSubmitdelete(this.state.deleteObj._id)}>yes</button>
-              <button>No</button>
+              <button onClick={()=>this.handleSubmitdelete}>No</button>
             </table>
           </ModalBody>
         </Modal>}
-      </div>
+
+        {this.state.modelOpenss && <Modal isOpen={this.state.modelOpenss}>
+          <ModalBody className=" row signup_box">
+            <div className='row'>
+              <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 "></div>
+              <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8">
+                <h1 className='signup_heading'>Events</h1>
+                <div>
+                  <label>Name</label>
+                  <input type='text' name="name" onChange={this.handleChanges}  className="input_box" value={this.state.updateObj.name} />
+                </div>
+                <div>
+                  <label>Date</label>
+                  <DatePicker
+                    selected={this.state.date}
+                    onChange={this.handleDate}
+                    className="date"
+                    value={this.state.updateObj.date}
+                  />
+                </div>
+                <div>
+                  <label>Time</label>
+                  <DatePicker
+                    selected={this.state.time}
+                    onChange={this.handleDate}
+                    showTimeSelect
+                    showTimeSelectOnly
+                    timeIntervals={15}
+                    dateFormat=" h:mm aa"
+                    className="date"
+                    value={this.state.updateObj.time}
+                  />
+                </div>
+                <label>Place</label>
+                <input type='text' name="place" value={this.state.updateObj.place} className="input_box" onChange={this.handleChanges} />
+                <button onClick={() => this.handlesubmitupdate()} className="btn btn-success signup_btn">Submit</button>
+              </div>
+            </div>
+          </ModalBody>
+        </Modal>}
+
+       </div>
     )
   }
 }
@@ -261,6 +341,7 @@ const actions = {
   validateuser,
   eventlist,
   eventlists,
+  update,
   successAlertHandler,
   failureAlertHandler
 }

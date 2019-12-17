@@ -131,3 +131,18 @@
 
 // }
 // export default connect(mapStateToProps,actions )(signupComponents);
+
+
+ // modelupdate = (index) => {
+  //   // this.Events[index]
+  //   // const key = e.target.name
+  //   // const value = e.target.value 
+  //   // // debugger
+  //   // this.setState({updateObj[key]: value})]
+  //   // console.log("res ====", resp)
+  //   debugger
+  //   this.setState({
+  //     modelOpenss: !this.state.modelOpenss,
+  //     updateObj:this.state.Events[index]
+  //   })
+  // }

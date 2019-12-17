@@ -120,13 +120,13 @@ const deleteContactfailure = (error) => (
       })
   }
    
-export const uptodate = body => (dispatch) => {
+export const update = (body,_id) => (dispatch) => {
     dispatch(apiRequestPending());
     debugger
-    return api.post('/updateeventlist', { ...body })
+    return api.put(`/updateeventlist/${_id}`,{...body})
       .then(resp => {
-        sessionStorage.setItem('token', resp.token);
-        sessionStorage.setItem('email', resp.email);
+        // sessionStorage.setItem('token', resp.token);
+        // sessionStorage.setItem('email', resp.email);
         dispatch(apiRequestComplete());
         dispatch(signinRequestSuccess(resp))
         return Promise.resolve(resp)

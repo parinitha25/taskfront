@@ -26,13 +26,13 @@ const formateMessage = (data) => {
 
 export const successAlertHandler = message => (dispatch) => {
   const formattedMessage = formateMessage(message);
-  setTimeout(() => dispatch(clearBothAlertHandler()),200000);
+  setTimeout(() => dispatch(clearBothAlertHandler()),3000);
    dispatch(successAlert(formattedMessage));
 };
 
 export const failureAlertHandler = error => (dispatch) => {
   const formattedMessage = formateMessage(error);
-  setTimeout(() => dispatch(clearBothAlertHandler()),200000);
+  setTimeout(() => dispatch(clearBothAlertHandler()),3000);
   dispatch(failureAlert(formattedMessage));
 }
 
