@@ -19,8 +19,8 @@ class homeComponent extends Component {
       Events: [],
       token: "",
       name: '',
-      updateObj:"",
-      updateObjs:'',
+      updateObjs:{},
+      updateObj:{},
       place: '',
       date: new Date(),
       time: new Date(),
@@ -93,11 +93,11 @@ class homeComponent extends Component {
   }
 
   handleChanges = (e) => {
-    let updateObjs= {}
-    // const { updateObjs } = this.state;
-    updateObjs[e.target.name] = e.target.value
+    // let updateObj= {}
+    const { updateObj} = this.state;
+    updateObj[e.target.name] = e.target.value
     debugger
-    this.setState({updateObjs})
+    this.setState({updateObj})
     debugger
   }
   handleSubmit = () => {
@@ -133,15 +133,14 @@ class homeComponent extends Component {
   }
 
   handlesubmitupdate = () => {
-    const {update,  successAlertHandler, failureAlertHandler } = this.props
-    const { updateObjs,updateObj} = this.state;
+    const {update,successAlertHandler, failureAlertHandler } = this.props
+    const { updateObj} = this.state;
     debugger
-    update(updateObjs,updateObj._id)
+    update(updateObj,updateObj._id)
       .then(resp=> {
         successAlertHandler(resp);
         this.setState({
           modelOpenss: !this.state.modelOpenss,
-       
         });
         window.location.reload();
       })
@@ -155,18 +154,18 @@ class homeComponent extends Component {
     });
   }
 
-  modeldelete = (resp) => {
+  modeldelete = (index) => {
     this.setState({
       modelOpens: !this.state.modelOpens,
-      deleteObj: resp,
+      deleteObj: this.state.Events[index]
     })
   }
 
-  modelupdate = (resp) => {
-    console.log("res ====", resp)
+  modelupdate = (index) => {
+    // console.log("res ====", resp)
     this.setState({
       modelOpenss: !this.state.modelOpenss,
-      updateObj: resp
+      updateObj: this.state.Events[index]
     })
   }
 
@@ -175,8 +174,6 @@ class homeComponent extends Component {
     const { handleSubmit } = this.props
     const { name, place } = this.state
     return (
-      // <form {handleSubmit(this.getallsignin)}>
-      // <form onSubmit={handleSubmit(this.getallsignin)}>
       <div>
         <button className="logout" onClick={handleSubmit(this.getallsignin)}>Logout</button>
         <div className="row">
@@ -215,14 +212,14 @@ class homeComponent extends Component {
                 <th>Place</th>
                 <th colSpan='2'>Buttons</th>
               </tr>
-              {this.state.Events.map((resp, _id) => (
+              {this.state.Events.map((resp, index) => (
                 <tr>
                   <td>{resp.name}</td>
                   <td>{resp.date}</td>
                   <td>{resp.time}</td>
                   <td>{resp.place}</td>
-                  <td><button onClick={() =>this.modelupdate(resp)} className="btn btn-danger">Edit</button></td>
-                  <td><button onClick={() => this.modeldelete(resp)} className="btn btn-danger">Remove</button></td>
+                  <td><button onClick={() =>this.modelupdate(index)} className="btn btn-danger">Edit</button></td>
+                  <td><button onClick={() => this.modeldelete(index)} className="btn btn-danger">Remove</button></td>
                 </tr>
               ))}
             </table>
@@ -268,7 +265,6 @@ class homeComponent extends Component {
         </Modal>
         {this.state.modelOpens && <Modal isOpen={this.state.modelOpens}>
           <ModalBody className=" row signup_box">
-
             <h4>Do you want to delete this list</h4>
             {this.state.deleteObj._id}
             {this.state.deleteObjs}
@@ -287,7 +283,7 @@ class homeComponent extends Component {
                 <h1 className='signup_heading'>Events</h1>
                 <div>
                   <label>Name</label>
-                  <input type='text' name="name" onChange={this.handleChanges}  className="input_box" value={this.state.updateObj.name} />
+                  <input type='text' name="name" onChange={this.handleChanges} className="input_box" value={this.state.updateObj.name} />
                 </div>
                 <div>
                   <label>Date</label>
