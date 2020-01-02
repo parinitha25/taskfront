@@ -1,4 +1,3 @@
-// import React from 'react';
 import React, { Component,Fragment } from 'react'
 import {connect} from 'react-redux';
 import './App.css';
@@ -39,9 +38,7 @@ class App extends Component {
     const { error, message} = this.props;
     return (
       <Fragment>
-       
-        {(message || error) && <AlertWrapper message={message} error={error} />}
-        
+        {(message || error) && <AlertWrapper message={message} error={error} />}  
        <Router>
        <Switch>     
        <Route exact path='/signup' component={signupComponents}></Route>

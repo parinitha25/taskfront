@@ -1,5 +1,6 @@
 import { api } from './api/api';
 import { apiRequestPending,apiRequestComplete } from './helper.action';
+
 export const SIGNIN_REQUEST_SUCCESS = 'SIGNIN_REQUEST_SUCCESS';
 export const SIGNIN_REQUEST_FAILURE = 'SIGNIN_REQUEST_FAILURE';
   
@@ -29,15 +30,4 @@ export const signup = body => (dispatch) => {
     })
 };
 
-// export const eventlist = body => (dispatch) => {
-//   dispatch(apiRequestPending());
-//   return api.post('/posteventlist', { ...body })
-//     .then(resp => {
-//       dispatch(apiRequestComplete());
-//       return Promise.resolve(dispatch(signinRequestSuccess(resp.message)))
-//     })
-//     .catch(error => {
-//       dispatch(apiRequestComplete());
-//       return Promise.reject(dispatch(signinRequestFailure(error.error)));
-//     })
-// };
+

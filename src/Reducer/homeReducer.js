@@ -4,8 +4,7 @@ const initialState = {
   name:'',
   date: '',
   time:'',
-  place:'',
-  token:''
+  place:''
 }
   
   const eventlist = (state = initialState, action) => {
@@ -21,8 +20,6 @@ const initialState = {
                 pending: false,
             }
         case DELETE_CONTACT_SUCESS:
-            // const Id = action.data;
-            // return state.filter(resp=>action.id!==Id)
             return{
               ...state,
               pending: false,
@@ -32,8 +29,8 @@ const initialState = {
               ...state,
               pending: false,
           }
-              default:
-              return state
+          default:
+            return state
     }
   }
   export default eventlist
