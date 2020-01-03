@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form';
-import {signin } from '../Action/signinAction';
+import {signin } from '../Action/signin.action';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
 import {successAlertHandler,failureAlertHandler} from '../Action/alert.action';
-import '../CSS/signupComponent.css';
+import '../CSS/Allcomponent.css';
 
 const validate = values => {
   const errors = {}

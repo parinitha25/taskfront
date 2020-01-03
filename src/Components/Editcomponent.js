@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {update} from '../Action/homeAction';
+import {update} from '../Action/home.action';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { connect } from 'react-redux';

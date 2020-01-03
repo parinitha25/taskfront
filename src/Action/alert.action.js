@@ -16,7 +16,7 @@ const failureAlert = (error) => {
   }
 }
 
-const formateMessage = (data) => {
+const formatMessage = (data) => {
   if(typeof(data) === 'string'){
     return data;
   } else {
@@ -25,13 +25,13 @@ const formateMessage = (data) => {
 }
 
 export const successAlertHandler = message => (dispatch) => {
-  const formattedMessage = formateMessage(message);
+  const formattedMessage = formatMessage(message);
   setTimeout(() => dispatch(clearBothAlertHandler()),3000);
    dispatch(successAlert(formattedMessage));
 };
 
 export const failureAlertHandler = error => (dispatch) => {
-  const formattedMessage = formateMessage(error);
+  const formattedMessage = formatMessage(error);
   setTimeout(() => dispatch(clearBothAlertHandler()),3000);
   dispatch(failureAlert(formattedMessage));
 }

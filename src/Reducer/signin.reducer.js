@@ -1,24 +1,13 @@
-import { SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE , TOKEN_EMAIL_TO_STORE} from '../Action/signinAction';
+import { SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE } from '../Action/signin.action';
     
   const initialState = {
-    // email: '',
-    // password:'',
-    // token: '',
-    name:'',
-    date: '',
-    time:'',
-    place:'',
+    email:'',
+    password:''
     
   }
      
   const signIn = (state = initialState, action) => {
     switch(action.type){
-    case TOKEN_EMAIL_TO_STORE:
-    return {
-      ...state,
-      token: sessionStorage.getItem('token'),
-      email: sessionStorage.getItem('email')
-    }
       case SIGNIN_REQUEST_SUCCESS:
       return{
         ...state,

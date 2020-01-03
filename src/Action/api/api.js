@@ -18,35 +18,6 @@ const headers = () => {
   }
 }
 
-// export const api = {
-//    get: (path) => {
-//     return new Promise((resolve, reject) => {
-//       return fetch(`${ROOT_API_URL}${path}`,{
-//         headers: headers(),
-//       })
-//         .then(resp => resp.json())
-//         .then(resp => resolve(resp))
-//         .catch(error => reject(error))
-//     })
-//   },
-//   post: (path, payload) => {
-//     payload = {
-//       method: 'post',
-//       body: JSON.stringify(payload),
-//       headers: headers(),
-//     }
-//     return new Promise((resolve, reject) => { 
-//       return fetch(`${ROOT_API_URL}${path}`, payload)
-//         .then(resp => resp.json())
-//         .then(resp => resolve(resp))
-//         .catch(error => reject(error))
-//     })
-//   }
-// }
-
-
-
-debugger
 export const api = {
   get: (path) => {
    return new Promise((resolve, reject) => {

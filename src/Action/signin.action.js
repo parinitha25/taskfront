@@ -1,10 +1,8 @@
 import { api } from './api/api';
-import { apiRequestPending, apiRequestComplete } from '../Action/helper.action';
+import { apiRequestComplete } from './helper.action';
 
 export const SIGNIN_REQUEST_SUCCESS = 'SIGNIN_REQUEST_SUCCESS';
-export const SIGNIN_REQUEST_FAILURE = 'SIGNIN_REQUEST_FAILURE';
-export const TOKEN_EMAIL_TO_STORE = 'TOKEN_EMAIL_TO_STORE';
-  
+export const SIGNIN_REQUEST_FAILURE = 'SIGNIN_REQUEST_FAILURE';  
 
 const signinRequestSuccess = (resp) => (
   {
@@ -18,12 +16,7 @@ const signinRequestFailure = (error) => (
     error
   });
 
-  export const storeEmailToken = () => ({
-    type: TOKEN_EMAIL_TO_STORE
-  })
-  
   export const signin = body => (dispatch) => {
-    dispatch(apiRequestPending());
     return api.post('/signin', { ...body })
       .then(resp => {
         sessionStorage.setItem('token', resp.token);

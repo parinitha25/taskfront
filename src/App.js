@@ -2,9 +2,9 @@ import React, { Component,Fragment } from 'react'
 import {connect} from 'react-redux';
 import './App.css';
 import {BrowserRouter as Router,Route,Switch,Redirect} from 'react-router-dom';
-import signupComponents from './Components/signupComponents';
-import signinComponent from './Components/signinComponent';
-import homeComponent from './Components/homeComponent';
+import Signupcomponent from './Components/Signupcomponents';
+import Signincomponent from './Components/Signincomponent';
+import Homecomponent from './Components/Homecomponent';
 import './interceptor';
 import {
   Alert, 
@@ -41,9 +41,9 @@ class App extends Component {
         {(message || error) && <AlertWrapper message={message} error={error} />}  
        <Router>
        <Switch>     
-       <Route exact path='/signup' component={signupComponents}></Route>
-       <Route exact path='/' component={signinComponent}></Route>
-       <PrivateRoute exact path='/home' component={homeComponent} />  
+       <Route exact path='/signup' component={Signupcomponent}></Route>
+       <Route exact path='/' component={Signincomponent}></Route>
+       <PrivateRoute exact path='/home' component={Homecomponent} />  
        </Switch>
        </Router>
       </Fragment>

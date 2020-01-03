@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form';
-import {signup } from '../Action/signupAction';
+import {signup } from '../Action/signup.action';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
 import {successAlertHandler,failureAlertHandler} from '../Action/alert.action';
-import '../CSS/signupComponent.css';
+import '../CSS/Allcomponent.css';
 
 const validate = values => {
   const errors = {}
@@ -74,11 +74,11 @@ class signupComponents extends Component {
       }
       signup(userObj) 
         .then(resp=>{
-          successAlertHandler(resp.resp);
+          successAlertHandler(resp);
           history.push('/');
         })
         .catch(error => {
-          failureAlertHandler(error.error);
+          failureAlertHandler(error);
         })
     }
 

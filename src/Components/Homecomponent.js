@@ -1,13 +1,13 @@
 import React, { Component } from 'react'
-import { logout, getalluser, validateuser, geteventlist, deleteContactlist,update } from '../Action/homeAction';
-import { posteventlist } from '../Action/homeAction'
+import { logout, getalluser, validateuser, geteventlist, deleteContactlist,update } from '../Action/home.action';
+import { posteventlist } from '../Action/home.action'
 import { connect } from 'react-redux';
 import { successAlertHandler, failureAlertHandler } from '../Action/alert.action';
-import '../CSS/signupComponent.css';
+import '../CSS/Allcomponent.css';
 import { Button, Modal, ModalBody} from 'reactstrap';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import EditComponent from './EditComponent';
+import Editcomponent from './Editcomponent';
 
 
 class homeComponent extends Component {
@@ -37,21 +37,22 @@ class homeComponent extends Component {
       time: date
     });
   }
-
-    /*------ call  validate user api----------- */
+  /*------ call validate user api----------- */
   componentDidMount = () => {
-    const { validateuser, successAlertHandler, failureAlertHandler } = this.props
+    const { validateuser,history, geteventlist,successAlertHandler, failureAlertHandler } = this.props
     validateuser()
       .then(resp => {
         successAlertHandler(resp);
       })
       .catch(error => {
         failureAlertHandler(error);
+        sessionStorage.removeItem("token")
       })
-  }
+    }
+  
     /* ---------------call  alluser api----------- */
-  componentDidMount = () => {
-    const { getalluser, failureAlertHandler } = this.props
+  componentWillMount = () => {
+    const { getalluser,history,geteventlist, failureAlertHandler } = this.props
     getalluser()
       .then(resp => {
         this.setState({ User: resp })
@@ -59,10 +60,7 @@ class homeComponent extends Component {
       .catch(error => {
         failureAlertHandler(error);
       })
-  }
-    /* -------call eventlist ------ */
-  componentWillMount = () => {
-    const { geteventlist, failureAlertHandler } = this.props
+  
     geteventlist()
       .then(resp => {
         this.setState({ Events: resp })
@@ -70,7 +68,7 @@ class homeComponent extends Component {
       .catch(error => {
         failureAlertHandler(error);
       })
-  }
+    } 
   
     /* ----------logout button---------- */
   logout = () => {
@@ -142,7 +140,7 @@ class homeComponent extends Component {
   }
     /*---------call child component ----------*/
   Updatelist(){
-    return <EditComponent updatelist={this.state.updatevalues} onsubmit={this.onsubmitupdate} key='1' />;
+    return <Editcomponent updatelist={this.state.updatevalues} onsubmit={this.onsubmitupdate} key='1' />;
   }
 
    /*--------update submit button------ */
@@ -204,9 +202,9 @@ class homeComponent extends Component {
                   <td>{resp.name}</td>
                   <td>{resp.date}</td>
                   <td>{resp.time}</td>
-                  <td>{resp.place}</td>
-                  <td><button onClick={ () => this.modelupdate(index)} className="btn btn-danger">Edit</button></td>
-                  <td><button onClick={ () => this.modeldelete(index)} className="btn btn-danger">Remove</button></td>
+                  <td>{resp.place}</td> 
+                  <td><button onClick={ () => this.modelupdate(index)} className="btn btn-danger edit">Edit</button>
+                  <button onClick={ () => this.modeldelete(index)} className="btn btn-danger remove" >Remove</button></td>
                 </tr>
               ))}
             </table>
@@ -274,7 +272,7 @@ class homeComponent extends Component {
 const mapStateToProps = (state) => {
   const { name } = state.homeReducer;
   const { date } = state.homeReducer;
-  const { place } = state.homeReducer;
+  const { place} = state.homeReducer;
   const { time } = state.homeReducer;
   return { name, date, time, place };
 };
