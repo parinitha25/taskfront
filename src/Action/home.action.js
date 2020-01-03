@@ -85,6 +85,7 @@ const signinRequestFailure = (error) => (
   }
 
   export const deleteContactlist = _id => (dispatch) => {
+    debugger
     return api.delete(`/deleteeventlist/${_id}`)
       .then(resp => {
         dispatch(apiRequestComplete());

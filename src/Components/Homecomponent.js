@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
-import { logout, getalluser, validateuser, geteventlist, deleteContactlist,update } from '../Action/home.action';
-import { posteventlist } from '../Action/home.action'
+import { logout,posteventlist, getalluser, validateuser, geteventlist, deleteContactlist,update } from '../Action/home.action';
 import { connect } from 'react-redux';
 import { successAlertHandler, failureAlertHandler } from '../Action/alert.action';
 import '../CSS/Allcomponent.css';
@@ -39,7 +38,7 @@ class homeComponent extends Component {
   }
   /*------ call validate user api----------- */
   componentDidMount = () => {
-    const { validateuser,history, geteventlist,successAlertHandler, failureAlertHandler } = this.props
+    const { validateuser,successAlertHandler, failureAlertHandler } = this.props
     validateuser()
       .then(resp => {
         successAlertHandler(resp);
@@ -52,7 +51,7 @@ class homeComponent extends Component {
   
     /* ---------------call  alluser api----------- */
   componentWillMount = () => {
-    const { getalluser,history,geteventlist, failureAlertHandler } = this.props
+    const { getalluser,geteventlist, failureAlertHandler } = this.props
     getalluser()
       .then(resp => {
         this.setState({ User: resp })
@@ -117,7 +116,7 @@ class homeComponent extends Component {
   
     /*--------delete submit button------*/
   handleSubmitdelete = (_id) => {
-    const { deleteContactlist, deleteContactsucess, successAlertHandler, failureAlertHandler } = this.props
+    const { deleteContactlist, successAlertHandler, failureAlertHandler } = this.props
     deleteContactlist(_id)
       .then(resp => {
         successAlertHandler(resp);
@@ -127,7 +126,7 @@ class homeComponent extends Component {
         window.location.reload();
       })
       .catch(error => {
-        failureAlertHandler(error);
+        failureAlertHandler(error);  
       })
   }
   handleSubmitdeleteclose= () => {

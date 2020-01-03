@@ -1,11 +1,9 @@
 import React, { Component } from 'react';
-import {update} from '../Action/home.action';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { connect } from 'react-redux';
-import { successAlertHandler, failureAlertHandler } from '../Action/alert.action';
 
-class TableRow extends Component {
+class Editcomponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -79,13 +77,7 @@ const mapStateToProps = (state) => {
   const { place } = state.homeReducer;
   const { time } = state.homeReducer;
   return { name, date, time, place};
-
 };
 
-const actions = {
-  update,
-  successAlertHandler,
-  failureAlertHandler
-}
 
-export default connect(mapStateToProps, actions)(TableRow)
+export default connect(mapStateToProps)(Editcomponent)
