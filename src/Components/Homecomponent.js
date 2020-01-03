@@ -114,7 +114,7 @@ class homeComponent extends Component {
       deleteObj: this.state.Events[index]
     })
   }
-
+  
     /*--------delete submit button------*/
   handleSubmitdelete = (_id) => {
     const { deleteContactlist, deleteContactsucess, successAlertHandler, failureAlertHandler } = this.props
@@ -129,6 +129,11 @@ class homeComponent extends Component {
       .catch(error => {
         failureAlertHandler(error);
       })
+  }
+  handleSubmitdeleteclose= () => {
+    this.setState({
+      modelOpendelete: !this.state.modelOpendelete,
+    });
   }
     /* --------update model ---------- */
   modelupdate = (index) => {
@@ -252,10 +257,9 @@ class homeComponent extends Component {
           <ModalBody className=" row signup_box">
             <h4>Do you want to delete this list</h4>
             {this.state.deleteObj._id}
-            {this.state.deleteObjs}
             <table border="1" className="table">
               <button onClick={() => this.handleSubmitdelete(this.state.deleteObj._id)}>yes</button>
-              <button onClick={()=>this.handleSubmitdelete}>No</button>
+              <button onClick={()=>this.handleSubmitdeleteclose()}>No</button>
             </table>
           </ModalBody>
         </Modal>}
