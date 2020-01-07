@@ -6,7 +6,6 @@ const ROOT_API_URL = process.env.REACT_APP_ROOT_PATH;
 // const setHeaders = () => {
 //   return sessionStorage.getItem('token');
 // }
-const token = sessionStorage.token;
 
 const setHeaders = () => {
   return sessionStorage.getItem('token');

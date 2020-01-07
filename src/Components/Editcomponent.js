@@ -2,16 +2,19 @@ import React, { Component } from 'react';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import { connect } from 'react-redux';
+import moment from 'moment';
+
 
 class Editcomponent extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      updateobject:props.updatelist
+      updateobject:props.updatelist   
     }     
-}
+  }
 
-  handleChanges = (e) => {   
+  handleChanges = (e) => {  
+    debugger 
     const {updateobject} = this.state;
     updateobject[e.target.name] = e.target.value
     this.setState({updateobject})
@@ -21,12 +24,14 @@ class Editcomponent extends Component {
     this.props.onsubmit(this.state.updateobject);
   }
 
-  handleDate = (date) => {
+  handleChange = date => {
+    const { updateobject } = this.state;
+    updateobject.date = date; 
+    updateobject.time = date; 
     this.setState({
-      date: date,
-      time: date
+      updateobject
     });
-  }
+  };
 
   render() {
     return (
@@ -34,37 +39,59 @@ class Editcomponent extends Component {
             <div className='row'>
               <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 "></div>
               <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                <h1 className='signup_heading'>Events</h1>
-                <div>
-                  <label>Name</label>
-                  <input type='text' name="name" onChange={this.handleChanges} className="input_box" value={this.state.updateobject.name} />
-                </div>
-                <div>
-                  <label>Date</label>
-                  <DatePicker
-                    selected={this.state.date}
-                    onChange={this.handleDate}
-                    className="date"
-                    value={this.state.updateobject.date}
-                  />
-                </div>
-                <div>
-                  <label>Time</label>
-                  <DatePicker
-                    selected={this.state.time}
-                    onChange={this.handleDate}
-                    showTimeSelect
-                    showTimeSelectOnly
-                    timeIntervals={15}
-                    dateFormat=" h:mm aa"
-                    className="date"
-                    value={this.state.updateobject.time}
-                  />
-                </div>
-                <label>Place</label>
-                <input type='text' name="place" value={this.state.updateobject.place} className="input_box" onChange={this.handleChanges} />
-                <button onClick={this.handlesubmitupdate} className="btn btn-success signup_btn">Submit</button>
+                <h1 className='Events_heading'>Events</h1>
+                  <div className='row'>
+                    <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2">    
+                      <label><b>Name</b></label>
+                    </div>
+                    <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7">   
+                      <input type='text' name="name" onChange={this.handleChanges} className="input_box" value={this.state.updateobject.name} />
+                    </div>
+                    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                  </div>
+                  <div className='row'>
+                    <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2  date">   
+                      <label><b>Date</b></label>
+                    </div>
+                    <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 date">
+                      <DatePicker
+                        selected={new Date(this.state.updateobject.date)}
+                        onChange={this.handleChange}
+                        value={moment(this.state.updateobject.date).format('YYYY-MM-DD')}
+                      />
+                    </div>
+                    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                  </div>
+                  <div className='row'>
+                    <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 date">   
+                      <label><b>Time</b></label>
+                    </div>
+                    <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 date">
+                      <DatePicker
+                        selected={new Date(this.state.updateobject.time)}
+                        onChange={this.handleChange}
+                        showTimeSelect
+                        showTimeSelectOnly
+                        timeIntervals={15}
+                        dateFormat="h:mm aa"
+                        timeCaption="time"
+                        value={moment(this.state.updateobject.time).format('h:mm:ss a')}
+                      />
+                    </div>
+                    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                  </div>
+                  <div className='row'>
+                    <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2  date"> 
+                      <label><b>Place</b></label>
+                    </div>
+                    <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7  date">
+                      <input type='text' name="place" value={this.state.updateobject.place} onChange={this.handleChanges} />
+                    </div>
+                    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                  </div>
+                    <button onClick={this.handlesubmitupdate} className="btn btn-success signup_btn">Submit</button>
               </div>
+              <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 "></div>
             </div>
         </div>
     );

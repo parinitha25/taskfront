@@ -7,6 +7,8 @@ import { Button, Modal, ModalBody} from 'reactstrap';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Editcomponent from './Editcomponent';
+import Deletecomponent from './Deletecomponent';
+import moment from 'moment';
 
 
 class homeComponent extends Component {
@@ -110,26 +112,38 @@ class homeComponent extends Component {
   modeldelete = (index) => {
     this.setState({
       modelOpendelete: !this.state.modelOpendelete,
-      deleteObj: this.state.Events[index]
+      deletevalues: this.state.Events[index]
     })
+  }
+    /*---call delete child component---*/
+  deletelist(){
+      return <Deletecomponent deletelist={this.state.deletevalues} onsubmit={this.onsubmitdelete}  onsubmitclose={this.onsubmitdeleteclose}key='1' />;
   }
   
     /*--------delete submit button------*/
-  handleSubmitdelete = (_id) => {
+    onsubmitdelete = (deleteobject) => {
+      debugger
     const { deleteContactlist, successAlertHandler, failureAlertHandler } = this.props
-    deleteContactlist(_id)
+    deleteContactlist(deleteobject._id)
       .then(resp => {
         successAlertHandler(resp);
-        this.setState({
-          modelOpendelete: !this.state.modelOpendelete,
-        });
-        window.location.reload();
+        setTimeout(
+          function() {
+              this.setState({position: 1,modelOpendelete: !this.state.modelOpendelete,});
+          }
+          .bind(this),
+          3000
+      );
+        // this.setState({
+        //   modelOpendelete: !this.state.modelOpendelete,
+        // });
+        // window.location.reload();
       })
       .catch(error => {
         failureAlertHandler(error);  
       })
   }
-  handleSubmitdeleteclose= () => {
+  onsubmitdeleteclose= () => {
     this.setState({
       modelOpendelete: !this.state.modelOpendelete,
     });
@@ -144,8 +158,9 @@ class homeComponent extends Component {
   }
     /*---------call child component ----------*/
   Updatelist(){
-    return <Editcomponent updatelist={this.state.updatevalues} onsubmit={this.onsubmitupdate} key='1' />;
+    return <Editcomponent updatelist={this.state.updatevalues} onsubmit={this.onsubmitupdate}  key='1' />;
   }
+  
 
    /*--------update submit button------ */
   onsubmitupdate = (updateobject) => {
@@ -204,8 +219,8 @@ class homeComponent extends Component {
               {this.state.Events.map((resp, index) => (
                 <tr>
                   <td>{resp.name}</td>
-                  <td>{resp.date}</td>
-                  <td>{resp.time}</td>
+                  <td>{moment(resp.date).format('YYYY-MM-DD')}</td>
+                  <td>{moment(resp.time).format( 'h:mm:ss a')}</td>
                   <td>{resp.place}</td> 
                   <td><button onClick={ () => this.modelupdate(index)} className="btn btn-danger edit">Edit</button>
                   <button onClick={ () => this.modeldelete(index)} className="btn btn-danger remove" >Remove</button></td>
@@ -220,46 +235,61 @@ class homeComponent extends Component {
             <div className='row'>
               <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 "></div>
               <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                <h1 className='signup_heading'>Events</h1>
-                <div>
-                  <label>Name</label>
-                  <input type='text' name="name" onChange={this.handleChange} className="input_box" value={name} />
-                </div>
-                <div>
-                  <label>Date</label>
-                  <DatePicker
-                    selected={this.state.date}
-                    onChange={this.handleDate}
-                    className="date"
-                  />
-                </div>
-                <div>
-                  <label>Time</label>
-                  <DatePicker
-                    selected={this.state.time}
-                    onChange={this.handleDate}
-                    showTimeSelect
-                    showTimeSelectOnly
-                    timeIntervals={15}
-                    dateFormat=" h:mm aa"
-                    className="date"
-                  />
-                </div>
-                <label>Place</label>
-                <input type='text' name="place" value={place} className="input_box" onChange={this.handleChange} />
-                <button onClick={this.handleSubmitpost} className="btn btn-success signup_btn">Submit</button>
+                <h1 className='Events_heading'>Events</h1>
+                  <div className='row'>
+                    <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 date">    
+                      <label><b>Name</b></label>
+                    </div>
+                    <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 date">
+                      <input type='text' name="name" onChange={this.handleChange} className="input_box" value={name} />
+                    </div>
+                    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                  </div>
+                  <div  className='row'>
+                    <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 date">
+                      <label><b>Date</b></label>
+                    </div>
+                    <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 date">
+                      <DatePicker
+                        selected={this.state.date}
+                        onChange={this.handleDate}
+                      />
+                    </div>
+                    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                  </div>
+                  <div className='row'>
+                    <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 date">
+                      <label><b>Time</b></label>
+                    </div>
+                    <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 date">
+                      <DatePicker
+                        selected={this.state.time}
+                        onChange={this.handleDate}
+                        showTimeSelect
+                        showTimeSelectOnly
+                        timeIntervals={15}
+                        dateFormat=" h:mm aa"
+                      />
+                      </div>
+                    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                  </div>
+                  <div className='row'>
+                    <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 date">
+                        <label><b>Place</b></label>
+                    </div>
+                    <div className="col-xs-7 col-sm-7 col-md-7 col-lg-7 date">
+                        <input type='text' name="place" value={place}  onChange={this.handleChange} />
+                    </div>
+                    <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+                  </div>
+                    <button onClick={this.handleSubmitpost} className="btn btn-success signup_btn">Submit</button>
               </div>
             </div>
           </ModalBody>
         </Modal>
         {this.state.modelOpendelete && <Modal isOpen={this.state.modelOpendelete}>
           <ModalBody className=" row signup_box">
-            <h4>Do you want to delete this list</h4>
-            {this.state.deleteObj._id}
-            <table border="1" className="table">
-              <button onClick={() => this.handleSubmitdelete(this.state.deleteObj._id)}>yes</button>
-              <button onClick={()=>this.handleSubmitdeleteclose()}>No</button>
-            </table>
+             {this.deletelist()}
           </ModalBody>
         </Modal>}
         {this.state.modelOpenupdate && <Modal isOpen={this.state.modelOpenupdate}>
