@@ -24,7 +24,8 @@ class homeComponent extends Component {
       time: new Date(),
       model: false,
       modeldelete: false,
-      modelupdate:false
+      modelupdate:false,
+      message:''
     }
   }
 
@@ -108,36 +109,36 @@ class homeComponent extends Component {
         failureAlertHandler(error);
       })
   }
+ 
     /*--------delete model------*/
   modeldelete = (index) => {
     this.setState({
       modelOpendelete: !this.state.modelOpendelete,
-      deletevalues: this.state.Events[index]
+      deletevalues: this.state.Events[index],
+      // message:this.props.resp
     })
   }
+   
     /*---call delete child component---*/
   deletelist(){
-      return <Deletecomponent deletelist={this.state.deletevalues} onsubmit={this.onsubmitdelete}  onsubmitclose={this.onsubmitdeleteclose}key='1' />;
+    debugger
+      return <Deletecomponent deletelist={this.state.deletevalues} sucessmessage={this.state.message} onsubmit={this.onsubmitdelete}  onsubmitclose={this.onsubmitdeleteclose}key='1' />;
   }
   
     /*--------delete submit button------*/
     onsubmitdelete = (deleteobject) => {
       debugger
-    const { deleteContactlist, successAlertHandler, failureAlertHandler } = this.props
+    const { deleteContactlist, failureAlertHandler } = this.props
     deleteContactlist(deleteobject._id)
       .then(resp => {
-        successAlertHandler(resp);
+        this.setState({message:resp})
         setTimeout(
           function() {
-              this.setState({position: 1,modelOpendelete: !this.state.modelOpendelete,});
-          }
+          this.setState({modelOpendelete: !this.state.modelOpendelete})
+          } 
           .bind(this),
           3000
-      );
-        // this.setState({
-        //   modelOpendelete: !this.state.modelOpendelete,
-        // });
-        // window.location.reload();
+        ); 
       })
       .catch(error => {
         failureAlertHandler(error);  
@@ -307,7 +308,8 @@ const mapStateToProps = (state) => {
   const { date } = state.homeReducer;
   const { place} = state.homeReducer;
   const { time } = state.homeReducer;
-  return { name, date, time, place };
+  const { success } = state.homeReducer;
+  return { name, date, time, place,success };
 };
 
 const actions = {

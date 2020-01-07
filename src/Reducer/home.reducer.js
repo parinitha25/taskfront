@@ -4,7 +4,8 @@ const initialState = {
   name:'',
   date: '',
   time:'',
-  place:''
+  place:'',
+  success:''
 }
   
   const eventlist = (state = initialState, action) => {
@@ -12,7 +13,8 @@ const initialState = {
         case SIGNIN_REQUEST_SUCCESS:
             return{
                 ...state,
-                pending: false,
+                success: action.resp.messagedelete,
+                // pending: false,
             }
         case SIGNIN_REQUEST_FAILURE:
             return{
