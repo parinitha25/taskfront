@@ -3,7 +3,7 @@ import { logout,posteventlist, getalluser, validateuser, geteventlist, deleteCon
 import { connect } from 'react-redux';
 import { successAlertHandler, failureAlertHandler } from '../Action/alert.action';
 import '../CSS/Allcomponent.css';
-import { Button, Modal, ModalBody} from 'reactstrap';
+import { Button, Modal, ModalBody,ModalHeader} from 'reactstrap';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
 import Editcomponent from './Editcomponent';
@@ -114,20 +114,16 @@ class homeComponent extends Component {
   modeldelete = (index) => {
     this.setState({
       modelOpendelete: !this.state.modelOpendelete,
-      deletevalues: this.state.Events[index],
-      // message:this.props.resp
+      deletevalues: this.state.Events[index]
     })
   }
    
     /*---call delete child component---*/
   deletelist(){
-    debugger
       return <Deletecomponent deletelist={this.state.deletevalues} sucessmessage={this.state.message} onsubmit={this.onsubmitdelete}  onsubmitclose={this.onsubmitdeleteclose}key='1' />;
   }
-  
     /*--------delete submit button------*/
-    onsubmitdelete = (deleteobject) => {
-      debugger
+  onsubmitdelete = (deleteobject) => {
     const { deleteContactlist, failureAlertHandler } = this.props
     deleteContactlist(deleteobject._id)
       .then(resp => {
@@ -203,8 +199,8 @@ class homeComponent extends Component {
             <div className="row">
               <div className="col-xs-5 col-sm-5 col-md-5 col-lg-5"></div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
-                <Button color="success" className="border" onClick={this.model}>Events
-                    <Button color="success" className="border" onClick={this.model}>+</Button>
+                <Button color="info" className="border" onClick={this.model}><b>Events</b>
+                    <Button color="info" className="border" onClick={this.model}>+</Button>
                 </Button>
               </div>
               <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
@@ -223,7 +219,7 @@ class homeComponent extends Component {
                   <td>{moment(resp.date).format('YYYY-MM-DD')}</td>
                   <td>{moment(resp.time).format( 'h:mm:ss a')}</td>
                   <td>{resp.place}</td> 
-                  <td><button onClick={ () => this.modelupdate(index)} className="btn btn-danger edit">Edit</button>
+                  <td><button onClick={ () => this.modelupdate(index)} className="btn btn-success edit">Edit</button>
                   <button onClick={ () => this.modeldelete(index)} className="btn btn-danger remove" >Remove</button></td>
                 </tr>
               ))}
@@ -232,11 +228,11 @@ class homeComponent extends Component {
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'> </div>
         </div>
         <Modal isOpen={this.state.modelOpenpost}>
-          <ModalBody className=" row signup_box">
+        <ModalHeader toggle={this.model} className="Events_heading modalcolor"><h1>Events</h1></ModalHeader>
+          <ModalBody className="modalcolor">
             <div className='row'>
               <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 "></div>
               <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                <h1 className='Events_heading'>Events</h1>
                   <div className='row'>
                     <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 date">    
                       <label><b>Name</b></label>
@@ -285,16 +281,19 @@ class homeComponent extends Component {
                   </div>
                     <button onClick={this.handleSubmitpost} className="btn btn-success signup_btn">Submit</button>
               </div>
+              <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 "></div>
             </div>
           </ModalBody>
         </Modal>
         {this.state.modelOpendelete && <Modal isOpen={this.state.modelOpendelete}>
-          <ModalBody className=" row signup_box">
+        <ModalHeader toggle={this.modeldelete} className="Events_heading modalcolord"><h1>Events</h1></ModalHeader>
+          <ModalBody className="modalcolord">
              {this.deletelist()}
           </ModalBody>
         </Modal>}
         {this.state.modelOpenupdate && <Modal isOpen={this.state.modelOpenupdate}>
-          <ModalBody>
+        <ModalHeader toggle={this.modelupdate} className='Events_heading modalcolore'><h1>Events</h1></ModalHeader>
+          <ModalBody className="modalcolore">
             {this.Updatelist()}
           </ModalBody>
         </Modal>}  

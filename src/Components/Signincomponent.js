@@ -74,7 +74,7 @@ class signinComponent extends Component {
         <div className="row">
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-            <label className="lbl">Email</label>
+            <label className="lbl"><b>Email</b></label>
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
             <Field name="email" type="email"  value={email} component={renderField}  className="input"  />
@@ -84,7 +84,7 @@ class signinComponent extends Component {
         <div className="row">
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-            <label className="lbl">Password</label>
+            <label className="lbl"><b>Password</b></label>
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
             <Field name="password" type="text"  value={password} component={renderField}  className="input" />
@@ -94,18 +94,20 @@ class signinComponent extends Component {
         <div className="row">
           <div className='col-xs-4 col-sm-4 col-md-4 col-lg-4'></div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-            <button type="submit" className='lbl'>
-              Submit
+            <button type="submit" className='btn btn-success lbl'>
+              <b>Submit</b>
             </button>
           </div>
           <div className='col-xs-2 col-sm-2 col-md-2 col-lg-2'>
-            <button type="button"  onClick={reset} className='clear'>
-              Clear Values
+            <button type="button"  onClick={reset} className='btn btn-success clear'>
+              <b>Clear Values</b>
             </button>
           </div>
-          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
-        </div>
+          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
+          </div>
+        </div>   
       </form> 
+      
     )
   }
 }

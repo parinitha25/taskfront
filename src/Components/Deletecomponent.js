@@ -12,7 +12,6 @@ class Deletecomponent extends Component {
     } 
     
     componentWillReceiveProps(nextProps) {
-      debugger
       if (this.props !== nextProps) {
        this.setState({messagedisplay: nextProps.sucessmessage});
       }
@@ -21,9 +20,11 @@ class Deletecomponent extends Component {
     handleSubmitdelete=()=>{
       this.props.onsubmit(this.state.deleteobject)
     }
+
     handleSubmitdeleteclose= () => {
-        this.props.onsubmitclose();
-      }
+      this.props.onsubmitclose();
+    }
+    
     handleDate = (date) => {
       this.setState({
         date: date,
@@ -35,14 +36,11 @@ class Deletecomponent extends Component {
       return (
           <div>
             <h4>Do you want to delete this <b>Event</b> list?{this.state.deleteobject.name}</h4>
-            {/* <div className="displayid">{this.state.deleteobject.name}</div> */}
-            <span style={{color:'red' ,fontsize:"30px"}}>{this.state.messagedisplay}</span>
+            <span className="textmessage">{this.state.messagedisplay}</span>
             <table  className="table">
-              <button onClick={() => this.handleSubmitdelete()} className="yesbuton">yes</button>
-              <button onClick={()=>this.handleSubmitdeleteclose()}>No</button>
-           
-            </table>
-           
+              <button onClick={() => this.handleSubmitdelete()} className="btn btn-primary yesbuton">yes</button>
+              <button onClick={()=>this.handleSubmitdeleteclose()} className="btn btn-primary nobutton">No</button>
+            </table>   
           </div>
       );
     }

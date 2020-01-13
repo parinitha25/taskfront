@@ -87,21 +87,21 @@ class signupComponents extends Component {
     const { email,username,password,phone} = this.state;
     return (
       <form onSubmit={handleSubmit(this.signup)}>
-        <h1 className='heading'>Registration Form</h1>
+        <h1 className='heading_register'>Registration Form</h1>
         <div className="row">
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-            <label className='lbl'>Username</label>
+            <label className='lbl'><b>Username</b></label>
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-            <Field className='input' name="username" type="text" value={username} component={renderField} />
+            <Field className='input' name="username" type="text"  value={username} component={renderField} />
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
         </div>
         <div className="row">
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-            <label className="lbl">Email</label>
+            <label className="lbl"><b>Email</b></label>
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
             <Field name="email" type="email"  value={email} component={renderField}  className="input"  />
@@ -111,17 +111,17 @@ class signupComponents extends Component {
         <div className="row">
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-            <label className="lbl">Password</label>
+            <label className="lbl"><b>Password</b></label>
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-            <Field name="password" type="text"  value={password} component={renderField}  className="input" />
+            <Field name="password" type="password"  value={password} component={renderField}  className="input" />
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
         </div>
         <div className="row">
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-            <label className="lbl">Mobile number</label>
+            <label className="lbl"><b>Mobile number</b></label>
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
             <Field name="phone" type="text"  value={phone} component={renderField}  className="input"/>       
@@ -131,25 +131,25 @@ class signupComponents extends Component {
         <div className="row">
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-            <label className="lbl">Gender</label>
+            <label className="lbl"><b>Gender</b></label>
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3 row'>
             <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
               <label className='lbl'>
                 <Field name="gender" component="input" type="radio" value="male" />{' '}
-                Male
+                <b>Male</b>
               </label>
             </div>
             <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
               <label className='lbl'>
                 <Field name="gender" component="input" type="radio" value="female" />{' '}
-                Female
+                <b>Female</b>
               </label>
             </div>
             <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
               <label className='lbl'>
                 <Field name="gender" component="input" type="radio" value="others" />{' '}
-                Others
+                <b>Others</b>
               </label>
             </div>  
             <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
@@ -159,12 +159,12 @@ class signupComponents extends Component {
         <div className="row">
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-            <button type="submit" className='lbl'>
+            <button type="submit" className='btn btn-primary lblr'>
               Register
             </button>
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
-            <button type="button"  onClick={reset} className='clear'>
+            <button type="button"  onClick={reset} className='btn btn-primary clearvalues'>
               Clear Values
             </button>
           </div>

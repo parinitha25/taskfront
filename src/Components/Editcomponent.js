@@ -13,8 +13,7 @@ class Editcomponent extends Component {
     }     
   }
 
-  handleChanges = (e) => {  
-    debugger 
+  handleChanges = (e) => {   
     const {updateobject} = this.state;
     updateobject[e.target.name] = e.target.value
     this.setState({updateobject})
@@ -39,7 +38,6 @@ class Editcomponent extends Component {
             <div className='row'>
               <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 "></div>
               <div className="col-xs-8 col-sm-8 col-md-8 col-lg-8">
-                <h1 className='Events_heading'>Events</h1>
                   <div className='row'>
                     <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2">    
                       <label><b>Name</b></label>

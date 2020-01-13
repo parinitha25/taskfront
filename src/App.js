@@ -6,9 +6,7 @@ import Signupcomponent from './Components/Signupcomponents';
 import Signincomponent from './Components/Signincomponent';
 import Homecomponent from './Components/Homecomponent';
 import './interceptor';
-import {
-  Alert, 
-} from 'reactstrap';
+import { Alert } from 'reactstrap';
 
 
 const AlertWrapper = ({ message, error }) => {
@@ -29,8 +27,6 @@ const PrivateRoute = ({ component: IncomingComponent, ...rest }) => (
   )}
 />
 );
-
-
 
 class App extends Component {
   
