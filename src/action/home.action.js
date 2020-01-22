@@ -34,13 +34,13 @@ const signinRequestFailure = (error) => (
     return api.post('/userlogout', { ...body })
       .then(resp => {
         dispatch(apiRequestComplete());
-        dispatch(signinRequestSuccess(resp.messagel))
-        return Promise.resolve(resp.messagel)
+        dispatch(signinRequestSuccess(resp.message))
+        return Promise.resolve(resp.message)
       })
       .catch(error => {
         dispatch(apiRequestComplete());
-        dispatch(signinRequestFailure(error.errorl))
-        return Promise.reject(error.errorl);
+        dispatch(signinRequestFailure(error.error))
+        return Promise.reject(error.error);
       })
   };
    
@@ -62,11 +62,13 @@ const signinRequestFailure = (error) => (
     return api.post('/posteventlist', { ...body })
       .then(resp => {
         dispatch(apiRequestComplete());
-        dispatch(signinRequestSuccess(resp))
+        dispatch(signinRequestSuccess(resp.message))
+        return Promise.resolve(resp.message)
       })
       .catch(error => {
         dispatch(apiRequestComplete());
         dispatch(signinRequestFailure(error))
+        return Promise.resolve(error)
       })
   };
 
@@ -88,8 +90,8 @@ const signinRequestFailure = (error) => (
     return api.delete(`/deleteeventlist/${_id}`)
       .then(resp => {
         dispatch(apiRequestComplete());
-        dispatch(signinRequestSuccess(resp.messagedelete))
-        return Promise.resolve(resp.messagedelete)
+        dispatch(signinRequestSuccess(resp.message))
+        return Promise.resolve(resp.message)
       .catch(error => {
         dispatch(apiRequestComplete());
         dispatch(signinRequestFailure(error))
@@ -103,8 +105,8 @@ const signinRequestFailure = (error) => (
     return api.put(`/updateeventlist/${_id}`,{...body})
       .then(resp => {
         dispatch(apiRequestComplete());
-        dispatch(signinRequestSuccess(resp))
-        return Promise.resolve(resp)
+        dispatch(signinRequestSuccess(resp.message))
+        return Promise.resolve(resp.message)
       })
       .catch(error => {
         dispatch(apiRequestComplete());

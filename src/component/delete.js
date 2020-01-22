@@ -1,13 +1,12 @@
 import React, { Component } from 'react';
-import '../CSS/Allcomponent.css';
+import '../css/Allcomponent.css';
 
-class Deletecomponent extends Component {
+class Delete extends Component {
     constructor(props) {
       super(props);
       this.state = {
         deleteobject:props.deletelist,
-        messagedisplay:props.sucessmessage,
-      
+        messagedisplay:props.sucessmessage, 
       }     
     } 
     
@@ -24,14 +23,7 @@ class Deletecomponent extends Component {
     handleSubmitdeleteclose= () => {
       this.props.onsubmitclose();
     }
-    
-    handleDate = (date) => {
-      this.setState({
-        date: date,
-        time: date
-      });
-    }
-  
+
     render() {
       return (
           <div>
@@ -46,4 +38,4 @@ class Deletecomponent extends Component {
     }
   }
   
-  export default Deletecomponent;
+  export default Delete;

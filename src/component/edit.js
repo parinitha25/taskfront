@@ -5,7 +5,7 @@ import { connect } from 'react-redux';
 import moment from 'moment';
 
 
-class Editcomponent extends Component {
+class Edit extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -97,12 +97,9 @@ class Editcomponent extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { name } = state.homeReducer;
-  const { date } = state.homeReducer;
-  const { place } = state.homeReducer;
-  const { time } = state.homeReducer;
+  const { name, date, time, place} = state.eventsReducer;
   return { name, date, time, place};
 };
 
 
-export default connect(mapStateToProps)(Editcomponent)
+export default connect(mapStateToProps)(Edit)

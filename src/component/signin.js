@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form';
-import {signin } from '../Action/signin.action';
+import {signin } from '../action/signin.action';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
-import {successAlertHandler,failureAlertHandler} from '../Action/alert.action';
-import '../CSS/Allcomponent.css';
+import {successAlertHandler,failureAlertHandler} from '../action/alert.action';
+import '../css/Allcomponent.css';
 
 const validate = values => {
   const errors = {}
@@ -52,12 +52,18 @@ class signinComponent extends Component {
       const { history } = this.props;
       const userObj = {
         email: values.email,
-        password:values.password
+        password:values.password,
       }
       signin(userObj) 
         .then(resp=>{
-          successAlertHandler(resp);
-          history.push('/home');
+          // successAlertHandler(resp);
+          if(resp.role==="Admin"){
+            history.push('/admin');
+          }
+          else{
+            history.push('/home');
+          }
+          
         })
         .catch(error => {
         failureAlertHandler(error);
@@ -113,8 +119,7 @@ class signinComponent extends Component {
 }
 
 const mapStateToProps=(state)=>{
-  const{email}=state.signinReducer; 
-  const{password}=state.signinReducer;
+  const{email,password}=state.signinReducer;
   return{email,password};
   
 };

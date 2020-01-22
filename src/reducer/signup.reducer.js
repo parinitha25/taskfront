@@ -1,4 +1,4 @@
-import { SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE } from '../Action/signup.action';
+import { SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE } from '../action/signup.action';
   
 const initialState = {
   username:'',

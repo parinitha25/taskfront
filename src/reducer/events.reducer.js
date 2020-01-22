@@ -1,4 +1,4 @@
-import { SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE} from '../Action/home.action';
+import { SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE} from '../action/home.action';
   
 const initialState = {
   name:'',

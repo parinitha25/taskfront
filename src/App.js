@@ -2,13 +2,14 @@ import React, { Component,Fragment } from 'react'
 import {connect} from 'react-redux';
 import './App.css';
 import {BrowserRouter as Router,Route,Switch,Redirect} from 'react-router-dom';
-import Signupcomponent from './Components/Signupcomponents';
-import Signincomponent from './Components/Signincomponent';
-import Homecomponent from './Components/Homecomponent';
+import signup from './component/signup';
+import signin from './component/signin';
+import events from './component/events';
+import admin from './component/admin';
 import './interceptor';
 import { Alert } from 'reactstrap';
 
-
+debugger
 const AlertWrapper = ({ message, error }) => {
   if (message) {
     return <Alert className='text-center mb-0' >{message}</Alert>
@@ -37,9 +38,10 @@ class App extends Component {
         {(message || error) && <AlertWrapper message={message} error={error} />}  
        <Router>
        <Switch>     
-       <Route exact path='/signup' component={Signupcomponent}></Route>
-       <Route exact path='/' component={Signincomponent}></Route>
-       <PrivateRoute exact path='/home' component={Homecomponent} />  
+       <Route exact path='/signup' component={signup}></Route>
+       <Route exact path='/' component={signin}></Route>
+       <PrivateRoute exact path='/home' component={events} />  
+       <Route exact path='/admin' component={admin} />  
        </Switch>
        </Router>
       </Fragment>

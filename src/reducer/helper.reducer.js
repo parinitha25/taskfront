@@ -1,4 +1,4 @@
-import{  API_REQUEST_COMPLETE } from '../Action/helper.action'
+import{  API_REQUEST_COMPLETE } from '../action/helper.action'
   
   const initialState = {
     pending: false

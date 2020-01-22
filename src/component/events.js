@@ -1,23 +1,22 @@
 import React, { Component } from 'react'
-import { logout,posteventlist, getalluser, validateuser, geteventlist, deleteContactlist,update } from '../Action/home.action';
+import { logout,posteventlist, getalluser, validateuser, geteventlist, deleteContactlist,update } from '../action/home.action';
 import { connect } from 'react-redux';
-import { successAlertHandler, failureAlertHandler } from '../Action/alert.action';
-import '../CSS/Allcomponent.css';
+import { successAlertHandler, failureAlertHandler } from '../action/alert.action';
+import '../css/Allcomponent.css';
 import { Button, Modal, ModalBody,ModalHeader} from 'reactstrap';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Editcomponent from './Editcomponent';
-import Deletecomponent from './Deletecomponent';
+import Edit from '../component/edit';
+import Delete from '../component/delete';
 import moment from 'moment';
 
 
-class homeComponent extends Component {
+class Events extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      User: [],
-      Events: [],
-      token: "",
+      user: [],
+      events: [],
       name: '',
       place: '',
       date: new Date(),
@@ -57,7 +56,7 @@ class homeComponent extends Component {
     const { getalluser,geteventlist, failureAlertHandler } = this.props
     getalluser()
       .then(resp => {
-        this.setState({ User: resp })
+        this.setState({ user: resp })
       })
       .catch(error => {
         failureAlertHandler(error);
@@ -65,7 +64,7 @@ class homeComponent extends Component {
   
     geteventlist()
       .then(resp => {
-        this.setState({ Events: resp })
+        this.setState({ events: resp })
       })
       .catch(error => {
         failureAlertHandler(error);
@@ -103,7 +102,6 @@ class homeComponent extends Component {
         this.setState({
           modelOpenpost: !this.state.modelOpenpost
         });
-        window.location.reload();
       })
       .catch(error => {
         failureAlertHandler(error);
@@ -114,13 +112,13 @@ class homeComponent extends Component {
   modeldelete = (index) => {
     this.setState({
       modelOpendelete: !this.state.modelOpendelete,
-      deletevalues: this.state.Events[index]
+      deletevalues: this.state.events[index]
     })
   }
    
     /*---call delete child component---*/
   deletelist(){
-      return <Deletecomponent deletelist={this.state.deletevalues} sucessmessage={this.state.message} onsubmit={this.onsubmitdelete}  onsubmitclose={this.onsubmitdeleteclose}key='1' />;
+      return <Delete deletelist={this.state.deletevalues} sucessmessage={this.state.message} onsubmit={this.onsubmitdelete}  onsubmitclose={this.onsubmitdeleteclose} />
   }
     /*--------delete submit button------*/
   onsubmitdelete = (deleteobject) => {
@@ -149,13 +147,13 @@ class homeComponent extends Component {
   modelupdate = (index) => {
     this.setState({
       modelOpenupdate: !this.state.modelOpenupdate,
-      updatevalues: this.state.Events[index]
+      updatevalues: this.state.events[index]
       
     })
   }
     /*---------call child component ----------*/
   Updatelist(){
-    return <Editcomponent updatelist={this.state.updatevalues} onsubmit={this.onsubmitupdate}  key='1' />;
+    return <Edit updatelist={this.state.updatevalues} onsubmit={this.onsubmitupdate}/>
   }
   
 
@@ -164,8 +162,8 @@ class homeComponent extends Component {
     const {update,successAlertHandler, failureAlertHandler} = this.props
     update(updateobject,updateobject._id)
       .then(resp=> {
+        debugger
         successAlertHandler(resp);
-        window.location.reload();
       })
       .catch(error => {
         failureAlertHandler(error);
@@ -181,13 +179,16 @@ class homeComponent extends Component {
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
           <div className='col-xs-6 col-sm-6 col-md-6 col-lg-6'>
             <table border="1" className="table">
+            <thead>
               <tr>
                 <th>Name</th>
                 <th>Email</th>
                 <th>Gender</th>
                 <th>Phone no</th>
               </tr>
-              {this.state.User.map((resp, key) => (
+              </thead>
+              <tbody>
+              {this.state.user.map((resp, key) => (
                 <tr>
                   <td>{resp.username}</td>
                   <td>{resp.email}</td>
@@ -195,6 +196,7 @@ class homeComponent extends Component {
                   <td>{resp.phone}</td>
                 </tr>
               ))}
+              </tbody>
             </table>
             <div className="row">
               <div className="col-xs-5 col-sm-5 col-md-5 col-lg-5"></div>
@@ -206,6 +208,7 @@ class homeComponent extends Component {
               <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
             </div>
             <table border="1" className="table">
+            <thead>
               <tr className="tableheading">
                 <th>Name</th>
                 <th>Date</th>
@@ -213,16 +216,19 @@ class homeComponent extends Component {
                 <th>Place</th>
                 <th colSpan='2'>Buttons</th>
               </tr>
-              {this.state.Events.map((resp, index) => (
-                <tr>
-                  <td>{resp.name}</td>
-                  <td>{moment(resp.date).format('YYYY-MM-DD')}</td>
-                  <td>{moment(resp.time).format( 'h:mm:ss a')}</td>
-                  <td>{resp.place}</td> 
-                  <td><button onClick={ () => this.modelupdate(index)} className="btn btn-success edit">Edit</button>
-                  <button onClick={ () => this.modeldelete(index)} className="btn btn-danger remove" >Remove</button></td>
-                </tr>
-              ))}
+              </thead>
+              <tbody>
+                {this.state.events.map((resp, index) => (
+                  <tr>
+                    <td>{resp.name}</td>
+                    <td>{moment(resp.date).format('YYYY-MM-DD')}</td>
+                    <td>{moment(resp.time).format( 'h:mm a')}</td>
+                    <td>{resp.place}</td> 
+                    <td><button onClick={ () => this.modelupdate(index)} className="btn btn-success edit">Edit</button>
+                    <button onClick={ () => this.modeldelete(index)} className="btn btn-danger remove" >Remove</button></td>
+                  </tr>
+                ))}
+              </tbody>
             </table>
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'> </div>
@@ -303,12 +309,8 @@ class homeComponent extends Component {
 }
 
 const mapStateToProps = (state) => {
-  const { name } = state.homeReducer;
-  const { date } = state.homeReducer;
-  const { place} = state.homeReducer;
-  const { time } = state.homeReducer;
-  const { success } = state.homeReducer;
-  return { name, date, time, place,success };
+  const {name, date, time, place} = state.eventsReducer;
+  return { name, date, time, place };
 };
 
 const actions = {
@@ -323,4 +325,4 @@ const actions = {
   failureAlertHandler
 }
 
-export default connect(mapStateToProps, actions)(homeComponent)
+export default connect(mapStateToProps, actions)(Events)

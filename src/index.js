@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import Reducer from './Reducer';
+import Reducer from './reducer';
 import ReduxThunk from 'redux-thunk'	
 import { Provider } from 'react-redux';	
 import '../node_modules/bootstrap/dist/css/bootstrap.min.css';
