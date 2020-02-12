@@ -37,8 +37,7 @@
   margin-top: 50px;
 }
 .logout{
-  text-align: right;
-  margin-left:80%; 
+  color:red;
 }
 
 .editimage{
@@ -59,6 +58,9 @@
 }
 .table-button{
   margin-top: 10%;
+}
+.tableevents{
+  margin-top: 2%;
 }
 .signup_btn{
   margin-left: 105px;
@@ -121,4 +123,17 @@
 }
 .Events_heading{
  color: rgb(55, 3, 241);
+}
+.eventstab{
+  margin-left: 20%;
+  margin-top: 10%;
+}
+.nav-heading{
+  color:white;
+  font-size: 20px;
+}
+.alert{
+  margin-top: 8%;
+  width:30%;
+  margin-left: 35%;
 }

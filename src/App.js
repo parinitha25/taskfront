@@ -9,12 +9,11 @@ import admin from './component/admin';
 import './interceptor';
 import { Alert } from 'reactstrap';
 
-debugger
 const AlertWrapper = ({ message, error }) => {
   if (message) {
-    return <Alert className='text-center mb-0' >{message}</Alert>
+    return <Alert className='text-center alert' color='success'>{message}</Alert>
   } else if (error) {
-    return <Alert className='text-center mb-0' color='danger'>{error}</Alert>
+    return <Alert className='text-center' color='danger'>{error}</Alert>
   } else {
     return '';
   }
@@ -40,8 +39,8 @@ class App extends Component {
        <Switch>     
        <Route exact path='/signup' component={signup}></Route>
        <Route exact path='/' component={signin}></Route>
-       <PrivateRoute exact path='/home' component={events} />  
-       <Route exact path='/admin' component={admin} />  
+       <PrivateRoute exact path='/events' component={events} />  
+       <PrivateRoute exact path='/admin' component={admin} />  
        </Switch>
        </Router>
       </Fragment>

@@ -27,7 +27,7 @@ const formatMessage = (data) => {
 export const successAlertHandler = message => (dispatch) => {
   const formattedMessage = formatMessage(message);
   setTimeout(() => dispatch(clearBothAlertHandler()),3000);
-   dispatch(successAlert(formattedMessage));
+  dispatch(successAlert(formattedMessage));
 };
 
 export const failureAlertHandler = error => (dispatch) => {

@@ -48,7 +48,7 @@ class signinComponent extends Component {
       }
     } 
     signin=(values) => { 
-      const{signin,successAlertHandler,failureAlertHandler}=this.props
+      const{signin,failureAlertHandler}=this.props
       const { history } = this.props;
       const userObj = {
         email: values.email,
@@ -56,12 +56,11 @@ class signinComponent extends Component {
       }
       signin(userObj) 
         .then(resp=>{
-          // successAlertHandler(resp);
           if(resp.role==="Admin"){
             history.push('/admin');
           }
           else{
-            history.push('/home');
+            history.push('/events');
           }
           
         })
@@ -120,8 +119,7 @@ class signinComponent extends Component {
 
 const mapStateToProps=(state)=>{
   const{email,password}=state.signinReducer;
-  return{email,password};
-  
+  return{email,password};  
 };
 
 const actions = {

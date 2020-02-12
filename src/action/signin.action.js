@@ -17,19 +17,16 @@ const signinRequestFailure = (error) => (
   });
 
   export const signin = body => (dispatch) => {
-    debugger
     return api.post('/signin', { ...body })
       .then(resp => {
         sessionStorage.setItem('token', resp.token);
         sessionStorage.setItem('email', resp.email);
         dispatch(apiRequestComplete());
-        debugger
         dispatch(signinRequestSuccess(resp))
         return Promise.resolve(resp)
       })
       .catch(error => {
         dispatch(apiRequestComplete());
-        console.log("hiii",error.error)
         dispatch(signinRequestFailure(error.error))
         return Promise.reject(error.error);
       })

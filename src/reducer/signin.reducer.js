@@ -2,8 +2,7 @@ import { SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE } from '../action/signin
     
   const initialState = {
     email:'',
-    password:''
-    
+    password:''   
   }
      
   const signIn = (state = initialState, action) => {

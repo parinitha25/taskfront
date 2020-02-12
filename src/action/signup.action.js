@@ -21,11 +21,13 @@ export const signup = body => (dispatch) => {
   return api.post('/signup', { ...body })
     .then(resp => {
       dispatch(apiRequestComplete());
-      return Promise.resolve(dispatch(signinRequestSuccess(resp)))
+      dispatch(signinRequestSuccess(resp))
+      return Promise.resolve(resp)
     })
     .catch(error => {
       dispatch(apiRequestComplete());
-      return Promise.reject(dispatch(signinRequestFailure(error)));
+      dispatch(signinRequestFailure(error))
+      return Promise.reject(error);
     })
 };
 

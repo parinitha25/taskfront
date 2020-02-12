@@ -25,7 +25,6 @@ export const api = {
      })
        .then(resp => resp.json())
        .then(resp => resolve(resp))
-      //  sessionStorage.removeItem("token"))
        .catch(error => reject(error))
    })
  },

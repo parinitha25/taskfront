@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { logout,posteventlist, getalluser, validateuser, geteventlist, deleteContactlist,update } from '../action/home.action';
+import { posteventlist, getalluser, validateuser, geteventlist, deleteContactlist,update } from '../action/events.action';
 import { connect } from 'react-redux';
 import { successAlertHandler, failureAlertHandler } from '../action/alert.action';
 import '../css/Allcomponent.css';
@@ -9,6 +9,7 @@ import "react-datepicker/dist/react-datepicker.css";
 import Edit from '../component/edit';
 import Delete from '../component/delete';
 import moment from 'moment';
+import Navbar from './Navbar';
 
 
 class Events extends Component {
@@ -70,22 +71,6 @@ class Events extends Component {
         failureAlertHandler(error);
       })
     } 
-  
-    /* ----------logout button---------- */
-  logout = () => {
-    const { logout, successAlertHandler, failureAlertHandler } = this.props
-    const { history } = this.props;
-    logout()
-      .then(resp => {
-        successAlertHandler(resp);
-        sessionStorage.removeItem("token")
-        history.push('/');
-      })
-      .catch(error => {
-        failureAlertHandler(error);
-        sessionStorage.removeItem("token")
-      })
-  }
 
     /* ----------post model event--------- */
   model = () => {
@@ -148,7 +133,6 @@ class Events extends Component {
     this.setState({
       modelOpenupdate: !this.state.modelOpenupdate,
       updatevalues: this.state.events[index]
-      
     })
   }
     /*---------call child component ----------*/
@@ -162,7 +146,6 @@ class Events extends Component {
     const {update,successAlertHandler, failureAlertHandler} = this.props
     update(updateobject,updateobject._id)
       .then(resp=> {
-        debugger
         successAlertHandler(resp);
       })
       .catch(error => {
@@ -174,7 +157,7 @@ class Events extends Component {
     const { name, place } = this.state
     return (
       <div>
-        <button className="logout" onClick={this.logout}>Logout</button>
+         <Navbar/>
         <div className="row">
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
           <div className='col-xs-6 col-sm-6 col-md-6 col-lg-6'>
@@ -188,7 +171,7 @@ class Events extends Component {
               </tr>
               </thead>
               <tbody>
-              {this.state.user.map((resp, key) => (
+              {this.state.user.map((resp, index) => (
                 <tr>
                   <td>{resp.username}</td>
                   <td>{resp.email}</td>
@@ -314,7 +297,6 @@ const mapStateToProps = (state) => {
 };
 
 const actions = {
-  logout,
   deleteContactlist,
   getalluser,
   validateuser,
