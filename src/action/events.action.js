@@ -43,27 +43,14 @@ const eventsRequestFailure = (error) => (
         return Promise.reject(error.error);
       })
   };
-   
-  export const getalluser = body => (dispatch) => {
-    return api.get('/getalluser', { ...body })
+  
+  export const posteventlist =(body,_id)=> (dispatch) => {    
+    return api.post(`/postevent/${_id}`, { ...body})
       .then(resp => {
+        sessionStorage.getItem('userId', resp.userId);
         dispatch(apiRequestComplete());
         dispatch(eventsRequestSuccess(resp))
         return Promise.resolve(resp)
-      .catch(error => {
-        dispatch(apiRequestComplete());
-        dispatch(eventsRequestFailure(error))
-        return Promise.reject(error);
-      })
-      })
-  }
-
-  export const posteventlist = body => (dispatch) => {
-    return api.post('/posteventlist', { ...body })
-      .then(resp => {
-        dispatch(apiRequestComplete());
-        dispatch(eventsRequestSuccess(resp.message))
-        return Promise.resolve(resp.message)
       })
       .catch(error => {
         dispatch(apiRequestComplete());
@@ -72,8 +59,8 @@ const eventsRequestFailure = (error) => (
       })
   }
 
-  export const geteventlist = body => (dispatch) => {
-    return api.get('/geteventlist', { ...body })
+  export const geteventlist =(body) => (dispatch) => {    
+    return api.get(`/getevents` ,{ ...body})
       .then(resp => {
         dispatch(apiRequestComplete());
         dispatch(eventsRequestSuccess(resp))
@@ -86,10 +73,12 @@ const eventsRequestFailure = (error) => (
       })  
   }
 
-  export const deleteContactlist = _id => (dispatch) => {
-    return api.delete(`/deleteeventlist/${_id}`)
+  export const deleteEvent = (_id,_id1) => (dispatch) => {
+    debugger
+    return api.delete(`/deleteevent/${_id}/${_id1}`)
       .then(resp => {
         dispatch(apiRequestComplete());
+        sessionStorage.getItem('userId', resp.userId);
         dispatch(eventsRequestSuccess(resp.message))
         return Promise.resolve(resp.message)
       })
@@ -100,10 +89,11 @@ const eventsRequestFailure = (error) => (
       })
   }
    
-  export const update = (body,_id) => (dispatch) => {
-    return api.put(`/updateeventlist/${_id}`,{...body})
+  export const updateEvent = (body,_id) => (dispatch) => {
+    return api.put(`/updateevent/${_id}`,{...body})
       .then(resp => {
         dispatch(apiRequestComplete());
+        // sessionStorage.getItem('userId', resp.userId);
         dispatch(eventsRequestSuccess(resp.message))
         return Promise.resolve(resp.message)
       })
@@ -113,4 +103,5 @@ const eventsRequestFailure = (error) => (
         return Promise.reject(error);
       })
   };
+
   

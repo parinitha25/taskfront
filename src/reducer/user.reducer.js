@@ -1,5 +1,5 @@
 import { EVENTS_REQUEST_SUCCESS, EVENTS_REQUEST_FAILURE} from '../action/events.action';
- 
+  
   const initialState = {
     username:'',
     gender: '',

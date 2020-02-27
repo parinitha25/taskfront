@@ -4,7 +4,7 @@ import './App.css';
 import {BrowserRouter as Router,Route,Switch,Redirect} from 'react-router-dom';
 import signup from './component/signup';
 import signin from './component/signin';
-import events from './component/events';
+import event from './component/event';
 import admin from './component/admin';
 import './interceptor';
 import { Alert } from 'reactstrap';
@@ -39,7 +39,7 @@ class App extends Component {
        <Switch>     
        <Route exact path='/signup' component={signup}></Route>
        <Route exact path='/' component={signin}></Route>
-       <PrivateRoute exact path='/events' component={events} />  
+       <PrivateRoute exact path='/event' component={event} />  
        <PrivateRoute exact path='/admin' component={admin} />  
        </Switch>
        </Router>

@@ -1,23 +1,22 @@
 import React, { Component } from 'react'
-import { posteventlist, getalluser, validateuser, geteventlist, deleteContactlist,update } from '../action/events.action';
+import { posteventlist, validateuser, geteventlist, deleteEvent,updateEvent } from '../action/events.action';
 import { connect } from 'react-redux';
 import { successAlertHandler, failureAlertHandler } from '../action/alert.action';
 import '../css/Allcomponent.css';
 import { Button, Modal, ModalBody,ModalHeader} from 'reactstrap';
 import DatePicker from "react-datepicker";
 import "react-datepicker/dist/react-datepicker.css";
-import Edit from '../component/edit';
-import Delete from '../component/delete';
+import Edit from './edit';
+import Delete from './delete';
 import moment from 'moment';
 import Navbar from './Navbar';
 
 
-class Events extends Component {
+class Event extends Component {
   constructor(props) {
-    super(props);
+    super(props)
     this.state = {
-      user: [],
-      events: [],
+      eventlist:[],
       name: '',
       place: '',
       date: new Date(),
@@ -54,61 +53,58 @@ class Events extends Component {
   
     /* ---------------call  alluser api----------- */
   componentWillMount = () => {
-    const { getalluser,geteventlist, failureAlertHandler } = this.props
-    getalluser()
-      .then(resp => {
-        this.setState({ user: resp })
-      })
-      .catch(error => {
-        failureAlertHandler(error);
-      })
-  
+    const {geteventlist, failureAlertHandler } = this.props
     geteventlist()
       .then(resp => {
-        this.setState({ events: resp })
+        this.setState({ eventlist: resp })
       })
       .catch(error => {
         failureAlertHandler(error);
       })
     } 
-
-    /* ----------post model event--------- */
+    
+  /* ----------post model event--------- */
   model = () => {
     this.setState({
       modelOpenpost: !this.state.modelOpenpost
     });
   }
-    /* ---------post the events------ */
+  
+  /* ---------post the events------ */
   handleSubmitpost = () => {
     const { name, place, date, time } = this.state;
     const { posteventlist,  failureAlertHandler } = this.props
-    posteventlist({ name, place, date, time })
-      .then(resp => {
+    var userid =  sessionStorage.getItem("userId");
+    posteventlist({ name, place, date, time },userid)
+      .then(resp => {    
         this.setState({
-          modelOpenpost: !this.state.modelOpenpost
+          modelOpenpost: !this.state.modelOpenpost         
         });
+        
       })
       .catch(error => {
         failureAlertHandler(error);
       })
   }
  
-    /*--------delete model------*/
-  modeldelete = (index) => {
+  /*--------delete model------*/
+  modeldelete = (eventdeleteobj) => {
     this.setState({
       modelOpendelete: !this.state.modelOpendelete,
-      deletevalues: this.state.events[index]
+      deletevalues:eventdeleteobj
     })
   }
    
-    /*---call delete child component---*/
+  /*---call delete child component---*/
   deletelist(){
-      return <Delete deletelist={this.state.deletevalues} sucessmessage={this.state.message} onsubmit={this.onsubmitdelete}  onsubmitclose={this.onsubmitdeleteclose} />
+    return <Delete deletelist={this.state.deletevalues} sucessmessage={this.state.message} onsubmit={this.onsubmitdelete}  onsubmitclose={this.onsubmitdeleteclose} />
   }
-    /*--------delete submit button------*/
+
+  /*--------delete submit button------*/
   onsubmitdelete = (deleteobject) => {
-    const { deleteContactlist, failureAlertHandler } = this.props
-    deleteContactlist(deleteobject._id)
+    const { deleteEvent, failureAlertHandler } = this.props
+    var userid =  sessionStorage.getItem("userId");
+    deleteEvent(userid,deleteobject._id)
       .then(resp => {
         this.setState({message:resp})
         setTimeout(
@@ -129,24 +125,31 @@ class Events extends Component {
     });
   }
     /* --------update model ---------- */
-  modelupdate = (index) => {
+  modelupdate = (eventObj) => {
     this.setState({
       modelOpenupdate: !this.state.modelOpenupdate,
-      updatevalues: this.state.events[index]
+      eventvalues:eventObj
     })
   }
     /*---------call child component ----------*/
   Updatelist(){
-    return <Edit updatelist={this.state.updatevalues} onsubmit={this.onsubmitupdate}/>
+    return <Edit event={this.state.eventvalues} onsubmit={this.onsubmitupdate}/>
   }
   
 
    /*--------update submit button------ */
   onsubmitupdate = (updateobject) => {
-    const {update,successAlertHandler, failureAlertHandler} = this.props
-    update(updateobject,updateobject._id)
+    const {updateEvent,successAlertHandler, failureAlertHandler} = this.props
+    updateEvent(updateobject,updateobject._id)
       .then(resp=> {
         successAlertHandler(resp);
+        setTimeout(
+          function() {
+          this.setState({modelOpenupdate: !this.state.modelOpenupdate})
+          } 
+          .bind(this),
+          3000
+        ); 
       })
       .catch(error => {
         failureAlertHandler(error);
@@ -159,36 +162,16 @@ class Events extends Component {
       <div>
          <Navbar/>
         <div className="row">
-          <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
-          <div className='col-xs-6 col-sm-6 col-md-6 col-lg-6'>
-            <table border="1" className="table">
-            <thead>
-              <tr>
-                <th>Name</th>
-                <th>Email</th>
-                <th>Gender</th>
-                <th>Phone no</th>
-              </tr>
-              </thead>
-              <tbody>
-              {this.state.user.map((resp, index) => (
-                <tr>
-                  <td>{resp.username}</td>
-                  <td>{resp.email}</td>
-                  <td>{resp.gender}</td>
-                  <td>{resp.phone}</td>
-                </tr>
-              ))}
-              </tbody>
-            </table>
+          <div className='col-xs-1 col-sm-1 col-md-1 col-lg-1'></div>
+          <div className='col-xs-8 col-sm-8 col-md-8 col-lg-8'>
             <div className="row">
-              <div className="col-xs-5 col-sm-5 col-md-5 col-lg-5"></div>
+              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
               <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4 ">
-                <Button color="info" className="border" onClick={this.model}><b>Events</b>
+                <Button color="info" className="border event_button" onClick={this.model}><b>Events</b>
                     <Button color="info" className="border" onClick={this.model}>+</Button>
                 </Button>
               </div>
-              <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
+              <div className="col-xs-4 col-sm-4 col-md-4 col-lg-4"></div>
             </div>
             <table border="1" className="table">
             <thead>
@@ -201,16 +184,18 @@ class Events extends Component {
               </tr>
               </thead>
               <tbody>
-                {this.state.events.map((resp, index) => (
+              {this.state.eventlist.map ((resp)  => (
+                resp.events.map((resp) => (
                   <tr>
                     <td>{resp.name}</td>
                     <td>{moment(resp.date).format('YYYY-MM-DD')}</td>
                     <td>{moment(resp.time).format( 'h:mm a')}</td>
                     <td>{resp.place}</td> 
-                    <td><button onClick={ () => this.modelupdate(index)} className="btn btn-success edit">Edit</button>
-                    <button onClick={ () => this.modeldelete(index)} className="btn btn-danger remove" >Remove</button></td>
-                  </tr>
-                ))}
+                    <td><button onClick={ () => this.modelupdate(resp)} className="btn btn-success edit">Edit</button>
+                    <button onClick={ () => this.modeldelete(resp)} className="btn btn-danger remove" >Remove</button></td>
+                   </tr>
+                ))               
+              ))}
               </tbody>
             </table>
           </div>
@@ -268,7 +253,7 @@ class Events extends Component {
                     </div>
                     <div className="col-xs-3 col-sm-3 col-md-3 col-lg-3"></div>
                   </div>
-                    <button onClick={this.handleSubmitpost} className="btn btn-success signup_btn">Submit</button>
+                    <button onClick={()=>this.handleSubmitpost()} className="btn btn-success signup_btn">Submit</button>
               </div>
               <div className="col-xs-2 col-sm-2 col-md-2 col-lg-2 "></div>
             </div>
@@ -283,7 +268,7 @@ class Events extends Component {
         {this.state.modelOpenupdate && <Modal isOpen={this.state.modelOpenupdate}>
         <ModalHeader toggle={this.modelupdate} className='Events_heading modalcolore'><h1>Events</h1></ModalHeader>
           <ModalBody className="modalcolore">
-            {this.Updatelist()}
+            {this.Updatelist()}           
           </ModalBody>
         </Modal>}  
        </div>
@@ -297,14 +282,13 @@ const mapStateToProps = (state) => {
 };
 
 const actions = {
-  deleteContactlist,
-  getalluser,
+  deleteEvent,
   validateuser,
   posteventlist,
   geteventlist,
-  update,
+  updateEvent,
   successAlertHandler,
   failureAlertHandler
 }
 
-export default connect(mapStateToProps, actions)(Events)
+export default connect(mapStateToProps, actions)(Event)

@@ -6,10 +6,12 @@ const ROOT_API_URL = process.env.REACT_APP_ROOT_PATH;
 // const setHeaders = () => {
 //   return sessionStorage.getItem('token');
 // }
-
+ 
 const setHeaders = () => {
   return sessionStorage.getItem('token');
 }
+
+
 const headers = () => {
   return {
   'Content-Type': 'application/json',
@@ -29,6 +31,7 @@ export const api = {
    })
  },
  post: (path, payload) => {
+   
    payload = {
      method: 'post',
      body: JSON.stringify(payload),

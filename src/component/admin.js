@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {  geteventlist ,getalluser} from '../action/events.action';
+import { geteventlist } from '../action/events.action';
 import { failureAlertHandler } from '../action/alert.action';
 import Eventlist from '../component/eventlist';
-import Userlist from '../component/user';
+import Userlist from './userlist';
 import Navbar from './Navbar';
 
 
@@ -16,19 +16,18 @@ class Admin extends Component {
   }   
 
   eventlist(){
-    return <Eventlist  onsubmit={this.tabClicked}/>
+    return <Eventlist  onsubmit={this.eventstabClicked}/>
   }
 
   userlist(){
-    return <Userlist   onsubmit={this.tabClickedd}/>
+    return <Userlist   onsubmit={this.usertabClicked}/>
   }
 
   eventstabClicked=()=>{
-    const {geteventlist,failureAlertHandler } = this.props
+    const {geteventlist ,failureAlertHandler } = this.props
     geteventlist()
       .then(resp => {
-        this.setState({ activeTab:1 })
-      
+        this.setState({ activeTab:1 })     
       })
       .catch(error => {
         failureAlertHandler(error);
@@ -36,8 +35,8 @@ class Admin extends Component {
   } 
 
   usertabClicked=()=>{    
-    const {getalluser,failureAlertHandler } = this.props
-    getalluser()
+    const {geteventlist,failureAlertHandler } = this.props
+    geteventlist()
       .then(resp => {
         this.setState({ activeTab:2 })
       })
@@ -85,8 +84,7 @@ function mapStateToProps(state) {
 
 const actions = {
     geteventlist,
-    getalluser,
-    failureAlertHandler
+    failureAlertHandler 
   }
   
 export default connect(mapStateToProps, actions)(Admin)

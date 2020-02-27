@@ -29,7 +29,7 @@ class Delete extends Component {
           <div>
             <h4>Do you want to delete this <b>Event</b> list?{this.state.deleteobject.name}</h4>
             <span className="textmessage">{this.state.messagedisplay}</span>
-            <table  className="table">
+            <table  className="tabledeletebutton">
               <button onClick={() => this.handleSubmitdelete()} className="btn btn-primary yesbuton">yes</button>
               <button onClick={()=>this.handleSubmitdeleteclose()} className="btn btn-primary nobutton">No</button>
             </table>   

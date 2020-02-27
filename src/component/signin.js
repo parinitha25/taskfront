@@ -60,7 +60,7 @@ class signinComponent extends Component {
             history.push('/admin');
           }
           else{
-            history.push('/events');
+            history.push('/event');
           }
           
         })

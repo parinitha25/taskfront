@@ -15,12 +15,13 @@ const signinRequestFailure = (error) => (
     type: SIGNIN_REQUEST_FAILURE,
     error
   });
-
+ 
   export const signin = body => (dispatch) => {
     return api.post('/signin', { ...body })
       .then(resp => {
         sessionStorage.setItem('token', resp.token);
         sessionStorage.setItem('email', resp.email);
+        sessionStorage.setItem('userId', resp.userId);
         dispatch(apiRequestComplete());
         dispatch(signinRequestSuccess(resp))
         return Promise.resolve(resp)
