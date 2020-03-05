@@ -104,4 +104,19 @@ const eventsRequestFailure = (error) => (
       })
   };
 
+  // export const postappt = body => (dispatch) => { 
+  //   debugger   
+  //   return api.post(`/appt`, { ...body})
+  //     .then(resp => {
+  //       dispatch(apiRequestComplete());
+  //       dispatch(eventsRequestSuccess(resp))
+  //       return Promise.resolve(resp)
+  //     })
+  //     .catch(error => {
+  //       dispatch(apiRequestComplete());
+  //       dispatch(eventsRequestFailure(error))
+  //       return Promise.resolve(error)
+  //     })
+  // }
+
   

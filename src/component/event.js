@@ -139,10 +139,9 @@ class Event extends Component {
 
    /*--------update submit button------ */
   onsubmitupdate = (updateobject) => {
-    const {updateEvent,successAlertHandler, failureAlertHandler} = this.props
+    const {updateEvent, failureAlertHandler} = this.props
     updateEvent(updateobject,updateobject._id)
-      .then(resp=> {
-        successAlertHandler(resp);
+      .then(resp=>{
         setTimeout(
           function() {
           this.setState({modelOpenupdate: !this.state.modelOpenupdate})

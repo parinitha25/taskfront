@@ -71,7 +71,7 @@ class signinComponent extends Component {
     
    
   render() {
-    const { handleSubmit, reset,} = this.props
+    const { handleSubmit, reset} = this.props
     const { email,password} = this.state;
     return (
       <form onSubmit={handleSubmit(this.signin)}>

@@ -8,13 +8,13 @@ class Eventlist extends Component {
     constructor(props) {
       super(props);
       this.state = {   
-        listevents:props.userlist
+        listuser:props.userlist
       }     
     } 
        
     componentWillReceiveProps(nextProps) {
       if (this.props !== nextProps) {
-       this.setState({listevents: nextProps.userlist});
+       this.setState({listuser: nextProps.userlist});
       }
      }
 
@@ -22,17 +22,15 @@ class Eventlist extends Component {
       return (
           <div>
             <table className="table tableevents">
-              {this.state.listevents.map ((resp) => (       
-                    <tr>                     
-                        {resp.events.map ((resp) => ( 
-                          <tr>                   
-                            <td>{resp.name}</td>                                        
-                            <td>{resp.place}</td> 
-                            <td>{moment(resp.date).format('YYYY-MM-DD')}</td> 
-                            <td>{moment(resp.time).format( 'h:mm a')}</td>                         
-                          </tr>                                       
-                        ))}                     
-                    </tr>
+              {this.state.listuser.map ((resp) => (   
+                resp.events.map ((resp) => ( 
+                  <tr>                   
+                    <td>{resp.name}</td>                                        
+                    <td>{resp.place}</td> 
+                    <td>{moment(resp.date).format('YYYY-MM-DD')}</td> 
+                    <td>{moment(resp.time).format( 'h:mm a')}</td>                         
+                  </tr>                                       
+                ))                 
               ))} 
             </table>      
           </div>

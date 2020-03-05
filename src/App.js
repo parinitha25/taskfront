@@ -6,6 +6,7 @@ import signup from './component/signup';
 import signin from './component/signin';
 import event from './component/event';
 import admin from './component/admin';
+import signupuser from './component/signupuser';
 import './interceptor';
 import { Alert } from 'reactstrap';
 
@@ -38,6 +39,7 @@ class App extends Component {
        <Router>
        <Switch>     
        <Route exact path='/signup' component={signup}></Route>
+       <Route exact path='/signupuser' component={signupuser}></Route>
        <Route exact path='/' component={signin}></Route>
        <PrivateRoute exact path='/event' component={event} />  
        <PrivateRoute exact path='/admin' component={admin} />  

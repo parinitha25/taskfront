@@ -1,9 +1,11 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { geteventlist } from '../action/events.action';
+import { invitatinguser } from '../action/signup.action';
 import { failureAlertHandler } from '../action/alert.action';
 import Eventlist from '../component/eventlist';
 import Userlist from './userlist';
+import Invite from './invitetab';
 import Navbar from './Navbar';
 
 
@@ -23,6 +25,9 @@ class Admin extends Component {
     return <Userlist   onsubmit={this.usertabClicked}/>
   }
 
+  invite(){
+    return <Invite   onsubmit={this.invitationtabClicked}/>
+  }
   eventstabClicked=()=>{
     const {geteventlist ,failureAlertHandler } = this.props
     geteventlist()
@@ -45,6 +50,17 @@ class Admin extends Component {
       })
   }
 
+  invitationtabClicked=()=>{    
+    const {invitatinguser,failureAlertHandler } = this.props
+    invitatinguser()
+      .then(resp => {
+        this.setState({ activeTab:3 })
+      })
+      .catch(error => {
+        failureAlertHandler(error);
+      })
+  }
+
   render() {
         return (
             <div>
@@ -59,7 +75,12 @@ class Admin extends Component {
                       + (this.state.activeTab === 2 ? ' active' : '')} 
                       onClick={() => this.usertabClicked()}>
                       Users
-                  </div>                     
+                  </div>   
+                  <div className={"nav-item nav-link" 
+                      + (this.state.activeTab === 3 ? ' active' : '')} 
+                      onClick={() => this.invitationtabClicked()}>
+                     invitation tab
+                  </div>                   
               </div>
               <div className="tab-content col-md-12" >
                 <div className={"tab-pane fade" 
@@ -70,20 +91,24 @@ class Admin extends Component {
                     + (this.state.activeTab === 2 ? ' show active' : '')} > 
                     {this.userlist()}  
                 </div>
+                <div className={"tab-pane fade" 
+                    + (this.state.activeTab === 3 ? ' show active' : '')} > 
+                    {this.invite()}  
+                </div>
               </div>
             </div>
       );
   }
 }
  
-function mapStateToProps(state) {
-    const {evenstlist} = state.eventlistReducer;
+function mapStateToProps(state) { 
     const {userlist} = state.userReducer;
-    return { evenstlist,userlist};
+    return { userlist};
 }
 
 const actions = {
     geteventlist,
+    invitatinguser,
     failureAlertHandler 
   }
   

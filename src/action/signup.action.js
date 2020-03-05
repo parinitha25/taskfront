@@ -1,19 +1,19 @@
 import { api } from './api/api';
 import { apiRequestComplete } from './helper.action';
 
-export const SIGNIN_REQUEST_SUCCESS = 'SIGNIN_REQUEST_SUCCESS';
-export const SIGNIN_REQUEST_FAILURE = 'SIGNIN_REQUEST_FAILURE';
+export const SIGNUP_REQUEST_SUCCESS = 'SIGNUP_REQUEST_SUCCESS';
+export const SIGNUP_REQUEST_FAILURE = 'SIGNUP_REQUEST_FAILURE';
   
 
-const signinRequestSuccess = resp => (
+const signupRequestSuccess = resp => (
   {
-    type: SIGNIN_REQUEST_SUCCESS,
+    type: SIGNUP_REQUEST_SUCCESS,
     resp
   });
 
-const signinRequestFailure = error => (
+const signupRequestFailure = error => (
   {
-    type: SIGNIN_REQUEST_FAILURE,
+    type: SIGNUP_REQUEST_FAILURE,
     error
   });
   
@@ -21,14 +21,40 @@ export const signup = body => (dispatch) => {
   return api.post('/signup', { ...body })
     .then(resp => {
       dispatch(apiRequestComplete());
-      dispatch(signinRequestSuccess(resp))
+      dispatch(signupRequestSuccess(resp))
       return Promise.resolve(resp)
     })
     .catch(error => {
       dispatch(apiRequestComplete());
-      dispatch(signinRequestFailure(error))
+      dispatch(signupRequestFailure(error))
       return Promise.reject(error);
     })
 };
 
+export const invitatinguser = body => (dispatch) => {    
+  return api.post(`/postusermail`, { ...body})
+    .then(resp => {
+      dispatch(apiRequestComplete());
+      dispatch(signupRequestSuccess(resp))
+      return Promise.resolve(resp)
+    })
+    .catch(error => {
+      dispatch(apiRequestComplete());
+      dispatch(signupRequestFailure(error))
+      return Promise.resolve(error)
+    })
+}
 
+export const getinvite = (body)  => (dispatch) => {   
+  return api.get('/getusermail' ,{ ...body})
+    .then(resp => {
+      dispatch(apiRequestComplete());
+      dispatch(signupRequestSuccess(resp))
+      return Promise.resolve(resp)
+    })
+    .catch(error => {
+      dispatch(apiRequestComplete());
+      dispatch(signupRequestFailure(error))
+      return Promise.reject(error);
+    })  
+}

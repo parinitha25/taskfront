@@ -1,10 +1,10 @@
 import React, { Component } from 'react';
-import '../css/Allcomponent.css';
 import { connect } from 'react-redux';
 import { successAlertHandler,failureAlertHandler } from '../action/alert.action';
 import {Accordion,AccordionItem,AccordionItemHeading, AccordionItemButton,AccordionItemPanel} from 'react-accessible-accordion';
 import 'react-accessible-accordion/dist/fancy-example.css';
 import moment from 'moment';
+import '../css/Allcomponent.css';
 
 class Userlist extends Component {
     constructor(props) {
