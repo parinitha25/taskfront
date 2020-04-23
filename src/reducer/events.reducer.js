@@ -1,4 +1,4 @@
-import { SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE} from '../Action/home.action';
+import { EVENTS_REQUEST_SUCCESS, EVENTS_REQUEST_FAILURE} from '../action/events.action';
   
 const initialState = {
   name:'',
@@ -9,12 +9,12 @@ const initialState = {
   
   const eventlist = (state = initialState, action) => {
     switch(action.type){
-        case SIGNIN_REQUEST_SUCCESS:
+        case EVENTS_REQUEST_SUCCESS:
             return{
                 ...state,
                 pending: false,
             }
-        case SIGNIN_REQUEST_FAILURE:
+        case EVENTS_REQUEST_FAILURE:
             return{
                 ...state,
                 pending: false,

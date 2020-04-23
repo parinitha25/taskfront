@@ -1,9 +1,8 @@
-import { SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE } from '../Action/signin.action';
+import { SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE } from '../action/signin.action';
     
   const initialState = {
     email:'',
-    password:''
-    
+    password:''   
   }
      
   const signIn = (state = initialState, action) => {

@@ -1,5 +1,5 @@
-import { SIGNIN_REQUEST_SUCCESS, SIGNIN_REQUEST_FAILURE } from '../Action/signup.action';
-  
+import { SIGNUP_REQUEST_SUCCESS, SIGNUP_REQUEST_FAILURE } from '../action/signup.action';
+
 const initialState = {
   username:'',
   email: '',
@@ -7,15 +7,15 @@ const initialState = {
   phone:'',
   gender:''
 }
-  
+ 
   const signup = (state = initialState, action) => {
     switch(action.type){
-      case SIGNIN_REQUEST_SUCCESS:
+      case SIGNUP_REQUEST_SUCCESS:
       return{
         ...state,
         pending: false,
       }
-      case SIGNIN_REQUEST_FAILURE:
+      case SIGNUP_REQUEST_FAILURE:
       return{
         ...state,
         pending: false,

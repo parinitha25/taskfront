@@ -10,6 +10,9 @@
 .input {
   float: left;
 }
+.inputemail{
+  margin-top: 20px;
+}
 .clear {
   margin-top: 25px;
   float: left;
@@ -36,10 +39,6 @@
   color: green;
   margin-top: 50px;
 }
-.logout{
-  text-align: right;
-  margin-left:80%; 
-}
 
 .editimage{
   width:100%;
@@ -56,9 +55,13 @@
 }
 .table{
   margin-top: 20%;
+  border-collapse: collapse;
 }
 .table-button{
   margin-top: 10%;
+}
+.tableevents{
+  margin-top: 2%;
 }
 .signup_btn{
   margin-left: 105px;
@@ -66,13 +69,16 @@
 }
 .border{
   border:1px;
+
+}
+.event_button{
+  margin-top: 75%;
 }
 .anchortag{
   margin-left: 45%;
   margin-top: 2%;
 }
 .date{
-  /* margin-left: 20%; */
   margin-top: 10%
 }
 
@@ -108,7 +114,7 @@
 .textmessage{
   color: red;
   font-size: 30px;
-  margin-left: 20%;
+  margin-left: 10%;
   margin-top:10%;
 }
 .modalcolor{
@@ -118,8 +124,37 @@
   background-color: rgb(0, 233, 221);
 }
 .modalcolord{
-  background-color: rgb(221, 94, 94);
+  background-color: rgb(0, 233, 221);
 }
 .Events_heading{
  color: rgb(55, 3, 241);
+}
+.eventstab{
+  margin-left: 20%;
+  margin-top: 10%;
+}
+.nav-heading{
+  color:white;
+  font-size: 20px;
+}
+.alert{
+  margin-top: 8%;
+  width:30%;
+  margin-left: 35%;
+}
+.tableevents{
+  border:2px solid;
+}
+
+table, th,td{
+  border-collapse: collapse;
+  width: 20%;
+} 
+.tabledeletebutton {
+  border:0px solid;
+  width: 100%;
+  margin-top: 20%;
+} 
+.showmorebutton{
+  margin-left: 40%
 }

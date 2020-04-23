@@ -6,10 +6,12 @@ const ROOT_API_URL = process.env.REACT_APP_ROOT_PATH;
 // const setHeaders = () => {
 //   return sessionStorage.getItem('token');
 // }
-
+ 
 const setHeaders = () => {
   return sessionStorage.getItem('token');
 }
+
+
 const headers = () => {
   return {
   'Content-Type': 'application/json',
@@ -19,13 +21,17 @@ const headers = () => {
 
 export const api = {
   get: (path) => {
+    // payload = {
+    //   method: 'get',
+    //   body: JSON.stringify(payload),
+    //   headers: headers(),
+    // }
    return new Promise((resolve, reject) => {
      return fetch(`${ROOT_API_URL}${path}`,{
        headers: headers(),
      })
        .then(resp => resp.json())
        .then(resp => resolve(resp))
-      //  sessionStorage.removeItem("token"))
        .catch(error => reject(error))
    })
  },

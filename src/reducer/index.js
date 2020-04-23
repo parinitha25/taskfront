@@ -4,7 +4,8 @@ import signupReducer from './signup.reducer';
 import helper from './helper.reducer';
 import alert from './alert.reducer';
 import signinReducer from './signin.reducer';
-import homeReducer from './home.reducer';
+import eventsReducer from './events.reducer';
+import userReducer from './user.reducer';
 
 export default combineReducers({
     form: formReducer,
@@ -12,6 +13,7 @@ export default combineReducers({
     helper,
     alert,
     signinReducer,
-    homeReducer   
+    eventsReducer,
+    userReducer 
 });
 

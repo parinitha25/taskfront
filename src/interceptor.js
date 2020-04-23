@@ -4,7 +4,6 @@ const handleRejectedResponses = (response) => {
   switch (response.status) {
     case 422:
     case 401:
-    case 400:
     case 404:
       return response.json()
         .then(data => {

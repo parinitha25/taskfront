@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { Field, reduxForm } from 'redux-form';
-import {signup } from '../Action/signup.action';
+import {signup } from '../action/signup.action';
 import {connect} from 'react-redux';
 import { compose } from 'redux';
-import {successAlertHandler,failureAlertHandler} from '../Action/alert.action';
-import '../CSS/Allcomponent.css';
+import {successAlertHandler,failureAlertHandler} from '../action/alert.action';
+import '../css/Allcomponent.css';
 
 const validate = values => {
   const errors = {}
@@ -63,6 +63,7 @@ class signupComponents extends Component {
       }
     } 
     signup=values => { 
+      debugger
       const{signup}=this.props
       const { history } = this.props;
       const userObj = {
@@ -177,11 +178,7 @@ class signupComponents extends Component {
   }
 }
 const mapStateToProps=(state)=>{
-  const{username}=state.signupReducer;
-  const{email}=state.signupReducer; 
-  const{password}=state.signupReducer; 
-  const{phone}=state.signupReducer; 
-  const{gender}=state.signupReducer; 
+  const{username,email,password,phone,gender}=state.signupReducer;
   return{username,email,password,phone,gender};
 };
 

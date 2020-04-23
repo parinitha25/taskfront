@@ -2,7 +2,7 @@ import {
     SUCCESS_ALERT,
     FAILURE_ALERT,
     CLEAR_BOTH_ALERT,
-  } from '../Action/alert.action'
+  } from '../action/alert.action'
   
   const initialState = {
     message: '',
