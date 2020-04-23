@@ -8,12 +8,12 @@ import Userlist from './userlist';
 import Invite from './invitetab';
 import Navbar from './Navbar';
 
-
 class Admin extends Component {
   constructor(props) {
     super(props);
       this.state = {
-      activeTab: ''
+      activeTab: '',
+      pageNo: 2,
     } 
   }   
 
@@ -29,25 +29,11 @@ class Admin extends Component {
     return <Invite   onsubmit={this.invitationtabClicked}/>
   }
   eventstabClicked=()=>{
-    const {geteventlist ,failureAlertHandler } = this.props
-    geteventlist()
-      .then(resp => {
-        this.setState({ activeTab:1 })     
-      })
-      .catch(error => {
-        failureAlertHandler(error);
-      })
+    this.setState({ activeTab:1})     
   } 
 
   usertabClicked=()=>{    
-    const {geteventlist,failureAlertHandler } = this.props
-    geteventlist()
-      .then(resp => {
-        this.setState({ activeTab:2 })
-      })
-      .catch(error => {
-        failureAlertHandler(error);
-      })
+    this.setState({ activeTab:2 })
   }
 
   invitationtabClicked=()=>{    
@@ -84,8 +70,9 @@ class Admin extends Component {
               </div>
               <div className="tab-content col-md-12" >
                 <div className={"tab-pane fade" 
-                    + (this.state.activeTab === 1 ? ' show active' : '')} >     
+                    + (this.state.activeTab === 1 ? ' show active' : '')} >  
                     {this.eventlist()}
+
                 </div>
                 <div className={"tab-pane fade" 
                     + (this.state.activeTab === 2 ? ' show active' : '')} > 
@@ -102,8 +89,8 @@ class Admin extends Component {
 }
  
 function mapStateToProps(state) { 
-    const {userlist} = state.userReducer;
-    return { userlist};
+    const {user} = state.userReducer;
+    return { user};
 }
 
 const actions = {

@@ -34,11 +34,36 @@ const signinRequestFailure = (error) => (
   };
 
 
+  export const validateuser = () => (dispatch) => {
+    debugger
+    return api.get('/validateuser')
+      .then(resp => {
+        dispatch(apiRequestComplete());
+        console.log(resp.message)
+        dispatch(signinRequestSuccess(resp.message))
+        return Promise.resolve(resp.message)
+      })
+      .catch(error => {
+        dispatch(apiRequestComplete());
+        console.log(error.error)
+        dispatch(signinRequestFailure(error.error))
+        return Promise.reject(error.error);
+      })
+  };
 
+  export const geteventlists =() => (dispatch) => {  
+    debugger
+    return api.get(`/geteventss`)
+      .then(resp=> {
+        dispatch(apiRequestComplete());
+        dispatch(signinRequestSuccess(resp))
+        return Promise.resolve(resp)
+      })
+      .catch(error => {
+        dispatch(apiRequestComplete());
+        dispatch(signinRequestFailure(error))
+        return Promise.resolve(error)
+      })  
+  }
 
-
-
-
-
-
-
+ 

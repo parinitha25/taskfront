@@ -9,7 +9,8 @@ class Invite extends Component {
   constructor(props) {
     super(props);
     this.state = {   
-      email:''
+      email:'',
+      role:''
     }     
   } 
        
@@ -17,12 +18,16 @@ class Invite extends Component {
     this.setState({ [e.target.name]: e.target.value });
   }
   
+ 
   invitatinguser = () => { 
+    debugger
     const{invitatinguser,failureAlertHandler}=this.props
     const userMail = {
       email: this.state.email,
+      role:this.state.role
     }
     Cookies.set('mail', this.state.email);
+    Cookies.set('role', this.state.role);
     invitatinguser(userMail) 
       .then(resp=>{
         successAlertHandler(resp);    
@@ -33,9 +38,14 @@ class Invite extends Component {
     }  
 
   render() {
-    const { email} = this.state;
+    const { email,role} = this.state;
     return (       
       <div>
+        <select value={role} name="role" onChange={this.handleChange} >
+            <option></option>
+            <option  value="admin">Admin</option>
+            <option  value="user">User</option>
+        </select>
         <input type="text" value={email} name="email" onChange={this.handleChange} ></input>
         <button onClick={this.invitatinguser}>Submit</button>
       </div>

@@ -73,7 +73,8 @@ class signupuserComponents extends Component {
         email:this.state.email,
         password:values.password,
         phone:values.phone,
-        gender:values.gender
+        gender:values.gender,
+        role:Cookies.get('role')
       }
       signup(userObj) 
         .then(resp=>{
@@ -96,9 +97,8 @@ class signupuserComponents extends Component {
         })    
       }  
 
-   
-
   render() {
+    debugger
     const { handleSubmit, reset} = this.props
     const {email,username,password,phone} = this.state;
     return (
@@ -121,7 +121,6 @@ class signupuserComponents extends Component {
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'>
             <input name="email" type="text" defaultValue={email} className="inputemail" ></input>
-            {/* <Field name={this.state.email}  type="email"   value={this.state.email}   component={renderField}  className="input"  /> */}
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'></div>
         </div>

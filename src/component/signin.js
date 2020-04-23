@@ -56,13 +56,12 @@ class signinComponent extends Component {
       }
       signin(userObj) 
         .then(resp=>{
-          if(resp.role==="Admin"){
+          if(resp.role==="admin"){
             history.push('/admin');
           }
           else{
             history.push('/event');
-          }
-          
+          }   
         })
         .catch(error => {
         failureAlertHandler(error);

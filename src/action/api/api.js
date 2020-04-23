@@ -21,6 +21,11 @@ const headers = () => {
 
 export const api = {
   get: (path) => {
+    // payload = {
+    //   method: 'get',
+    //   body: JSON.stringify(payload),
+    //   headers: headers(),
+    // }
    return new Promise((resolve, reject) => {
      return fetch(`${ROOT_API_URL}${path}`,{
        headers: headers(),
@@ -31,7 +36,6 @@ export const api = {
    })
  },
  post: (path, payload) => {
-   
    payload = {
      method: 'post',
      body: JSON.stringify(payload),

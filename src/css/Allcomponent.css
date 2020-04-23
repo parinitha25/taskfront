@@ -72,7 +72,7 @@
 
 }
 .event_button{
-  margin-top: 75px;
+  margin-top: 75%;
 }
 .anchortag{
   margin-left: 45%;
@@ -150,10 +150,11 @@ table, th,td{
   border-collapse: collapse;
   width: 20%;
 } 
-
 .tabledeletebutton {
   border:0px solid;
   width: 100%;
   margin-top: 20%;
 } 
-
+.showmorebutton{
+  margin-left: 40%
+}

@@ -4,31 +4,18 @@ import { apiRequestComplete } from './helper.action';
 export const EVENTS_REQUEST_SUCCESS = 'EVENTS_REQUEST_SUCCESS';
 export const EVENTS_REQUEST_FAILURE = 'EVENTS_REQUEST_FAILURE';
 
-const eventsRequestSuccess = (resp) => (
+ const eventsRequestSuccess = (resp) => (
+  
   {
-    type: EVENTS_REQUEST_SUCCESS,
-    resp
+     type: EVENTS_REQUEST_SUCCESS,
+     resp
   });
 
-const eventsRequestFailure = (error) => (
+ const eventsRequestFailure = (error) => (
   {
     type: EVENTS_REQUEST_FAILURE,
     error
   });
-
-  export const validateuser = body => (dispatch) => {
-    return api.get('/validateuser', { ...body })
-      .then(resp => {
-        dispatch(apiRequestComplete());
-        dispatch(eventsRequestSuccess(resp.message))
-        return Promise.resolve(resp.message)
-      })
-      .catch(error => {
-        dispatch(apiRequestComplete());
-        dispatch(eventsRequestFailure(error.error))
-        return Promise.reject(error.error);
-      })
-  };
 
   export const logout = body => (dispatch) => {
     return api.post('/userlogout', { ...body })
@@ -59,9 +46,10 @@ const eventsRequestFailure = (error) => (
       })
   }
 
-  export const geteventlist =(body) => (dispatch) => {    
-    return api.get(`/getevents` ,{ ...body})
-      .then(resp => {
+  export const geteventlist =(pageNo) => (dispatch) => {  
+    debugger
+    return api.get(`/getevents?pageNo=${pageNo}`)
+      .then(resp=> {
         dispatch(apiRequestComplete());
         dispatch(eventsRequestSuccess(resp))
         return Promise.resolve(resp)
@@ -69,7 +57,7 @@ const eventsRequestFailure = (error) => (
       .catch(error => {
         dispatch(apiRequestComplete());
         dispatch(eventsRequestFailure(error))
-        return Promise.reject(error);
+        return Promise.resolve(error)
       })  
   }
 
@@ -79,6 +67,7 @@ const eventsRequestFailure = (error) => (
       .then(resp => {
         dispatch(apiRequestComplete());
         sessionStorage.getItem('userId', resp.userId);
+        console.log(resp.message)
         dispatch(eventsRequestSuccess(resp.message))
         return Promise.resolve(resp.message)
       })
@@ -93,7 +82,6 @@ const eventsRequestFailure = (error) => (
     return api.put(`/updateevent/${_id}`,{...body})
       .then(resp => {
         dispatch(apiRequestComplete());
-        // sessionStorage.getItem('userId', resp.userId);
         dispatch(eventsRequestSuccess(resp.message))
         return Promise.resolve(resp.message)
       })
@@ -104,19 +92,5 @@ const eventsRequestFailure = (error) => (
       })
   };
 
-  // export const postappt = body => (dispatch) => { 
-  //   debugger   
-  //   return api.post(`/appt`, { ...body})
-  //     .then(resp => {
-  //       dispatch(apiRequestComplete());
-  //       dispatch(eventsRequestSuccess(resp))
-  //       return Promise.resolve(resp)
-  //     })
-  //     .catch(error => {
-  //       dispatch(apiRequestComplete());
-  //       dispatch(eventsRequestFailure(error))
-  //       return Promise.resolve(error)
-  //     })
-  // }
 
   

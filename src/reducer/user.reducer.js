@@ -7,7 +7,8 @@ import { EVENTS_REQUEST_SUCCESS, EVENTS_REQUEST_FAILURE} from '../action/events.
     password:'',
     phone:'',
     role:'',
-    userlist:[]
+    user:[],
+    usercount:[]
   }
  
   const userlist = (state = initialState, action) => {
@@ -16,7 +17,8 @@ import { EVENTS_REQUEST_SUCCESS, EVENTS_REQUEST_FAILURE} from '../action/events.
             return{
                 ...state,
                 pending: false,
-                userlist:action.resp
+                user: [...state.user, ...action.resp[0].list],
+                usercount:action.resp[0].metadata
             }
         case EVENTS_REQUEST_FAILURE:
             return{

@@ -1,5 +1,6 @@
 import React, { Component } from 'react'
-import { posteventlist, validateuser, geteventlist, deleteEvent,updateEvent } from '../action/events.action';
+import { posteventlist,deleteEvent,updateEvent ,geteventlist} from '../action/events.action';
+import {  validateuser,geteventlists} from '../action/signin.action';
 import { connect } from 'react-redux';
 import { successAlertHandler, failureAlertHandler } from '../action/alert.action';
 import '../css/Allcomponent.css';
@@ -24,7 +25,9 @@ class Event extends Component {
       model: false,
       modeldelete: false,
       modelupdate:false,
-      message:''
+      message:'',
+      pageNo:2,
+      userlisttotal:[]
     }
   }
 
@@ -40,6 +43,7 @@ class Event extends Component {
   }
   /*------ call validate user api----------- */
   componentDidMount = () => {
+    debugger
     const { validateuser,successAlertHandler, failureAlertHandler } = this.props
     validateuser()
       .then(resp => {
@@ -51,18 +55,36 @@ class Event extends Component {
       })
     }
   
-    /* ---------------call  alluser api----------- */
   componentWillMount = () => {
-    const {geteventlist, failureAlertHandler } = this.props
+    const {geteventlist,failureAlertHandler } = this.props
     geteventlist()
       .then(resp => {
-        this.setState({ eventlist: resp })
+        this.setState({ eventlist: this.props.user})
       })
       .catch(error => {
         failureAlertHandler(error);
       })
     } 
-    
+
+    componentWillReceiveProps(nextProps) {
+      if (this.props !== nextProps) {
+       this.setState({eventlist: nextProps.user,userlisttotal:nextProps.usercount});
+      }
+     }
+
+
+    geteventlist = () => {
+      let { pageNo } = this.state
+      const { geteventlist, failureAlertHandler } = this.props
+      geteventlist(pageNo)
+        .then(resp => {
+          this.setState({pageNo :pageNo +1 })
+        })
+        .catch(error => {
+          failureAlertHandler(error);
+        })
+    }
+   
   /* ----------post model event--------- */
   model = () => {
     this.setState({
@@ -89,6 +111,7 @@ class Event extends Component {
  
   /*--------delete model------*/
   modeldelete = (eventdeleteobj) => {
+    debugger
     this.setState({
       modelOpendelete: !this.state.modelOpendelete,
       deletevalues:eventdeleteobj
@@ -102,6 +125,7 @@ class Event extends Component {
 
   /*--------delete submit button------*/
   onsubmitdelete = (deleteobject) => {
+    debugger
     const { deleteEvent, failureAlertHandler } = this.props
     var userid =  sessionStorage.getItem("userId");
     deleteEvent(userid,deleteobject._id)
@@ -156,6 +180,7 @@ class Event extends Component {
   } 
 
   render() {
+    debugger
     const { name, place } = this.state
     return (
       <div>
@@ -191,12 +216,20 @@ class Event extends Component {
                     <td>{moment(resp.time).format( 'h:mm a')}</td>
                     <td>{resp.place}</td> 
                     <td><button onClick={ () => this.modelupdate(resp)} className="btn btn-success edit">Edit</button>
-                    <button onClick={ () => this.modeldelete(resp)} className="btn btn-danger remove" >Remove</button></td>
+                    <button onClick={ () => this.modeldelete(resp)} className="btn btn-danger remove" >Remove</button>
+                    </td>
                    </tr>
                 ))               
-              ))}
+              ))}  
               </tbody>
             </table>
+            {this.state.userlisttotal.map((resp) => (
+                  <tr> 
+                    <td> 
+                      <button style={{ display: resp.total-1 <= resp.pageNo ? 'none' : 'block' }}  onClick={this.geteventlist}>Show more</button>
+                    </td>
+                  </tr>
+                ))}
           </div>
           <div className='col-xs-3 col-sm-3 col-md-3 col-lg-3'> </div>
         </div>
@@ -277,17 +310,19 @@ class Event extends Component {
 
 const mapStateToProps = (state) => {
   const {name, date, time, place} = state.eventsReducer;
-  return { name, date, time, place };
+  const {user,usercount}=state.userReducer;
+  return { name, date, time, place,user,usercount };
 };
 
 const actions = {
   deleteEvent,
   validateuser,
   posteventlist,
-  geteventlist,
+  geteventlists,
   updateEvent,
   successAlertHandler,
-  failureAlertHandler
+  failureAlertHandler,
+  geteventlist
 }
 
 export default connect(mapStateToProps, actions)(Event)

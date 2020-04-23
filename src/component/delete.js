@@ -11,6 +11,7 @@ class Delete extends Component {
     } 
     
     componentWillReceiveProps(nextProps) {
+      debugger
       if (this.props !== nextProps) {
        this.setState({messagedisplay: nextProps.sucessmessage});
       }

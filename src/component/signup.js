@@ -63,6 +63,7 @@ class signupComponents extends Component {
       }
     } 
     signup=values => { 
+      debugger
       const{signup}=this.props
       const { history } = this.props;
       const userObj = {
